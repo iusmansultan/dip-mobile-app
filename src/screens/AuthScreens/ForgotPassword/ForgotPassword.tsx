@@ -35,26 +35,17 @@ const ForgotPassword: React.FC<MyComponentProps> = ({navigation}) => {
   };
 
   return (
-    <ImageBackground
-      source={require('../../../assets/images/authBg.png')}
-      style={styles.container}>
-      <SafeAreaView>
-        <TouchableOpacity onPress={handleOnBackPress}>
-          <Image
-            source={require('../../../assets/icons/Back.png')}
-            style={styles.backIcon}
-          />
-        </TouchableOpacity>
+    <View style={styles.container}>
+      <View>
         <View style={styles.topImageContainer}>
           <Image
-            source={require('../../../assets/icons/lockIcon.png')}
+            source={require('../../../assets/images/logo.png')}
             style={styles.icon}
           />
         </View>
-        <Text style={styles.labelText}>Forgot Password</Text>
         <Text style={styles.labelDescrition}>
-          Don’t worry! It happens. Please enter the email associated with your
-          account.
+          Enter the email address you used when you joined and we'll send you
+          instructions to reset your password.
         </Text>
 
         <InputField
@@ -63,12 +54,10 @@ const ForgotPassword: React.FC<MyComponentProps> = ({navigation}) => {
           onChange={() => {}}
           isSecureText={false}
         />
+      </View>
 
-        <View style={styles.forgotPasswordContianer}></View>
-
-        <PrimaryButton title="Submit" onPress={handleOnSubmit} />
-      </SafeAreaView>
-    </ImageBackground>
+      <PrimaryButton title="Send reset link" onPress={handleOnSubmit} />
+    </View>
   );
 };
 

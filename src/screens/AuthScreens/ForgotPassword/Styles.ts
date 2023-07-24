@@ -5,7 +5,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 40,
+    alignContent: 'center',
+    justifyContent: 'space-between',
+    padding: 15,
   },
   labelText: {
     color: '#5E5E5E',
@@ -23,6 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
     marginBottom: 30,
+    textAlign: 'center',
   },
   forgotPasswordContianer: {
     justifyContent: 'flex-end',
@@ -86,8 +89,8 @@ const styles = StyleSheet.create({
     gap: 40,
   },
   icon: {
-    width: 60,
-    height: 60,
+    width: 120,
+    height: 120,
   },
   backIcon: {
     width: 30,

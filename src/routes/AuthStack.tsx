@@ -56,12 +56,36 @@ const AuthStack = () => {
       <Stack.Screen
         name={FORGOT_PASSWORD}
         component={ForgotPassword}
-        options={{headerShown: false}}
+        options={{
+          title: 'Forgot Password',
+          headerStyle: {
+            backgroundColor: WHITE,
+          },
+          headerTitleStyle: {
+            color: BLACK,
+            // fontFamily: 'Poppins-Regular',
+            // fontSize: getFontSize(14),
+          },
+          headerBackTitleVisible: false,
+          headerTintColor: BLACK,
+        }}
       />
       <Stack.Screen
         name={CREATE_PASSWORD}
         component={CreatePassword}
-        options={{headerShown: false}}
+        options={{
+          title: 'Create New Password',
+          headerStyle: {
+            backgroundColor: WHITE,
+          },
+          headerTitleStyle: {
+            color: BLACK,
+            // fontFamily: 'Poppins-Regular',
+            // fontSize: getFontSize(14),
+          },
+          headerBackTitleVisible: false,
+          headerTintColor: BLACK,
+        }}
       />
     </Stack.Navigator>
   );

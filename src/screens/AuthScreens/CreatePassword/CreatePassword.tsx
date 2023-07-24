@@ -29,42 +29,35 @@ const CreatePassword: React.FC<MyComponentProps> = ({navigation}) => {
   };
 
   return (
-    <ImageBackground
-      source={require('../../../assets/images/authBg.png')}
-      style={styles.container}>
-      <TouchableOpacity onPress={handleOnBackPress}>
-        <Image
-          source={require('../../../assets/icons/Back.png')}
-          style={styles.backIcon}
+    <View style={styles.container}>
+      <View>
+        <View style={styles.topImageContainer}>
+          <Image
+            source={require('../../../assets/images/logo.png')}
+            style={styles.icon}
+          />
+        </View>
+        <Text style={styles.labelDescrition}>
+          Please enter a new, strong password to be used for your account.
+        </Text>
+
+        <InputField
+          title="New Password"
+          placeholderText="must be 8 characters"
+          onChange={() => {}}
+          isSecureText={true}
         />
-      </TouchableOpacity>
-      <View style={styles.topImageContainer}>
-        <Image
-          source={require('../../../assets/icons/lockOpenIcon.png')}
-          style={styles.icon}
+
+        <InputField
+          title="Confirm new password"
+          placeholderText="must be 8 characters"
+          onChange={() => {}}
+          isSecureText={true}
         />
       </View>
-      <Text style={styles.labelText}>Reset Password</Text>
-      <Text style={styles.labelDescrition}>Please enter new password</Text>
-
-      <InputField
-        title="New Password"
-        placeholderText="must be 8 characters"
-        onChange={() => {}}
-        isSecureText={true}
-      />
-
-      <InputField
-        title="Confirm new password"
-        placeholderText="must be 8 characters"
-        onChange={() => {}}
-        isSecureText={true}
-      />
-
-      <View style={styles.forgotPasswordContianer}></View>
 
       <PrimaryButton title="Reset Password" onPress={() => {}} />
-    </ImageBackground>
+    </View>
   );
 };
 
