@@ -21,12 +21,8 @@ const Stack = createStackNavigator();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator initialRouteName={SPLASH}>
-      <Stack.Screen
-        name={SPLASH}
-        component={Splash}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator initialRouteName={MY_TABS}>
+    
       <Stack.Screen
         name={MY_TABS}
         component={MyTabs}

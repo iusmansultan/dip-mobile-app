@@ -6,12 +6,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import styles from './Styles';
 
 const HomeIcon = require('../../../assets/icons/homeIcon.png');
-const leaderboardIcon = require('../../../assets/icons/leaderboardIcon.png');
-const ExpansionIcon = require('../../../assets/icons/ExpansionIcon.png');
+const searchIcon = require('../../../assets/icons/searchIcon.png');
+const addIcon = require('../../../assets/icons/addIcon.png');
+const NotificationIcon = require('../../../assets/icons/notificationIcon.png');
 const settingIcon = require('../../../assets/icons/settingIcon.png');
 
 // import screens for bottom tabs
 import Home from '../Home/Home';
+import Add from '../Add/Add';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import Expansion from '../Expansion/Expansion';
 import Settings from '../Settings/Settings';
@@ -22,25 +24,19 @@ import {
   LEADERBOARD,
   EXPANSION,
   SETTINGS,
+  ADD
 } from '../../../helpers/RoutesName';
 
 const Tab = createBottomTabNavigator();
 
 const MyTabs = () => {
   return (
-    <Tab.Navigator initialRouteName="dashboard">
+    <Tab.Navigator initialRouteName={ADD}>
       <Tab.Screen
         name={HOME}
         component={Home}
         options={{
-          tabBarLabel: ({focused}) => (
-            <Text
-              style={
-                focused ? styles.tabBarLabelActive : styles.tabBarLabelInActive
-              }>
-              Home
-            </Text>
-          ),
+          tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
               source={HomeIcon}
@@ -56,17 +52,26 @@ const MyTabs = () => {
         name={LEADERBOARD}
         component={Leaderboard}
         options={{
-          tabBarLabel: ({focused}) => (
-            <Text
-              style={
-                focused ? styles.tabBarLabelActive : styles.tabBarLabelInActive
-              }>
-              Leaderboard
-            </Text>
-          ),
+          tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
-              source={leaderboardIcon}
+              source={searchIcon}
+              style={
+                focused ? styles.tabBarIconsActive : styles.tabBarIconsInActive
+              }
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name={ADD}
+        component={Add}
+        options={{
+          tabBarLabel: () => null,
+          tabBarIcon: ({focused}) => (
+            <Image
+              source={addIcon}
               style={
                 focused ? styles.tabBarIconsActive : styles.tabBarIconsInActive
               }
@@ -79,17 +84,10 @@ const MyTabs = () => {
         name={EXPANSION}
         component={Expansion}
         options={{
-          tabBarLabel: ({focused}) => (
-            <Text
-              style={
-                focused ? styles.tabBarLabelActive : styles.tabBarLabelInActive
-              }>
-              Expansion
-            </Text>
-          ),
+          tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
-              source={ExpansionIcon}
+              source={NotificationIcon}
               style={
                 focused ? styles.tabBarIconsActive : styles.tabBarIconsInActive
               }
@@ -102,14 +100,7 @@ const MyTabs = () => {
         name={SETTINGS}
         component={Settings}
         options={{
-          tabBarLabel: ({focused}) => (
-            <Text
-              style={
-                focused ? styles.tabBarLabelActive : styles.tabBarLabelInActive
-              }>
-              Settings
-            </Text>
-          ),
+          tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
               source={settingIcon}

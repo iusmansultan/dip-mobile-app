@@ -35,12 +35,12 @@ const Login: React.FC<MyComponentProps> = ({navigation}) => {
   };
 
   const handleSignIn = () => {
-    // dispatch(
-    //   saveUser({
-    //     isLoggedIn: true,
-    //     user: {},
-    //   }),
-    // );
+    dispatch(
+      saveUser({
+        isLoggedIn: true,
+        user: {},
+      }),
+    );
   };
   return (
     <ScrollView
@@ -108,7 +108,7 @@ const Login: React.FC<MyComponentProps> = ({navigation}) => {
           </View>
 
           <PrimaryButton
-            isDisbaled={true}
+            isDisbaled={false}
             title="Agree & Continue "
             onPress={handleSignIn}
           />

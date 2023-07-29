@@ -13,6 +13,7 @@ export const HOME = 'home';
 export const LEADERBOARD = 'leaderboard';
 export const EXPANSION = 'expansion';
 export const SETTINGS = 'settings';
+export const ADD = 'add';
 
 
 
