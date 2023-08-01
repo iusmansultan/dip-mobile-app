@@ -47,9 +47,10 @@ const styles = StyleSheet.create({
     color: BLACK,
     textDecorationLine: 'underline',
   },
-  
+
   containerList: {
     width: '100%',
+    padding: 10,
   },
 
   postCard: {

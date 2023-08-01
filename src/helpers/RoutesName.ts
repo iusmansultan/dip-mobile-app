@@ -11,7 +11,7 @@ export const CREATE_PASSWORD = 'createpassword';
 export const MY_TABS = 'mytabs';
 export const HOME = 'home';
 export const LEADERBOARD = 'leaderboard';
-export const EXPANSION = 'expansion';
+export const NOTIFICATION = 'notification';
 export const SETTINGS = 'settings';
 export const ADD = 'add';
 
