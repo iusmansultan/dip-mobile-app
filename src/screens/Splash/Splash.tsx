@@ -9,10 +9,10 @@ const Splash = ({navigation}) => {
   const isLoggedIn = useAppSelector(
     (state: any) => state.user.value.isLoggedIn,
   );
-  useEffect(() => {
+  const onNext = () => {
     if (isLoggedIn) navigation.navigate(MY_TABS);
     else navigation.navigate(LOGIN);
-  }, []);
+  };
 
   return (
     <View style={styles.container}>
@@ -23,10 +23,7 @@ const Splash = ({navigation}) => {
         />
         <Text style={styles.labelText}>Travel globally, eat locally.</Text>
       </View>
-      <PrimaryButton
-        title="Try dip"
-        onPress={()=>{}}
-      />
+      <PrimaryButton title="Try dip" onPress={onNext} />
     </View>
   );
 };

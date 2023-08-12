@@ -1,61 +1,45 @@
-import {Text, ImageBackground, TouchableOpacity} from 'react-native';
+import {Text, View, Image, ScrollView} from 'react-native';
 import React from 'react';
 import styles from './Styles';
-import {
-  HOW_TO_PLAY,
-  EXPANSION,
-  SETTINGS,
-  PLAY,
-} from '../../../helpers/RoutesName';
+import ReportCard from '../../../components/ReportCard/ReportCard';
 
-const Home: React.FC = ({navigation}) => {
-  const homeButtons = [
-    {
-      id: 1,
-      label: 'Play',
-      action: () => {
-        navigation.navigate(PLAY);
-      },
-    },
-    {
-      id: 2,
-      label: 'How to play',
-      action: () => {
-        navigation.navigate(HOW_TO_PLAY);
-      },
-    },
-    {
-      id: 3,
-      label: 'Preferences',
-      action: () => {
-        navigation.navigate(SETTINGS);
-      },
-    },
-    {
-      id: 4,
-      label: 'Upgrade',
-      action: () => {
-        navigation.navigate(EXPANSION);
-      },
-    },
-  ];
-
+const Home: React.FC = ({}) => {
   return (
-    <ImageBackground
-      source={require('../../../assets/images/authBg.png')}
-      style={styles.container}>
-      <Text style={styles.labelText}>Numbers</Text>
-
-      {homeButtons.map((item: any) => (
-        <TouchableOpacity
-          key={item.id}
-          onPress={item.action}
-          style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>{item.label}</Text>
-        </TouchableOpacity>
-      ))}
-    </ImageBackground>
+    <View style={styles.container}>
+      <HeaderContainer />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.containerList}>
+        {[1, 2, 3].map((item, index) => {
+          return (
+            <View key={index}>
+              <ReportCard />
+            </View>
+          );
+        })}
+      </ScrollView>
+    </View>
   );
 };
 
 export default Home;
+
+const HeaderContainer = () => {
+  return (
+    <View style={styles.headerContainer}>
+      <Image
+        source={require('../../../assets/images/logo.png')}
+        style={styles.logo}
+      />
+
+      <View style={styles.tabButtons}>
+        <Text style={styles.activeText}>Explore</Text>
+        <Text style={styles.inActiveText}>Following</Text>
+      </View>
+      <Image
+        source={require('../../../assets/icons/saveForLater.png')}
+        style={styles.logo}
+      />
+    </View>
+  );
+};

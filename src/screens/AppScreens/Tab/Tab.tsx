@@ -14,14 +14,14 @@ const settingIcon = require('../../../assets/icons/settingIcon.png');
 // import screens for bottom tabs
 import Home from '../Home/Home';
 import Add from '../Add/Add';
-import Leaderboard from '../Leaderboard/Leaderboard';
+import Search from '../Search/Search';
 import Notification from '../Notification/Notification';
 import Settings from '../Settings/Settings';
 
 // route name
 import {
   HOME,
-  LEADERBOARD,
+  SEARCH,
   NOTIFICATION,
   SETTINGS,
   ADD,
@@ -31,7 +31,7 @@ const Tab = createBottomTabNavigator();
 
 const MyTabs = () => {
   return (
-    <Tab.Navigator initialRouteName={ADD}>
+    <Tab.Navigator initialRouteName={SEARCH}>
       <Tab.Screen
         name={HOME}
         component={Home}
@@ -49,8 +49,8 @@ const MyTabs = () => {
         }}
       />
       <Tab.Screen
-        name={LEADERBOARD}
-        component={Leaderboard}
+        name={SEARCH}
+        component={Search}
         options={{
           tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
@@ -61,7 +61,7 @@ const MyTabs = () => {
               }
             />
           ),
-          headerShown: false,
+          // headerShown: false,
         }}
       />
       <Tab.Screen

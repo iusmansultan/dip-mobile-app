@@ -9,11 +9,11 @@ export const CREATE_PASSWORD = 'createpassword';
 
 
 export const MY_TABS = 'mytabs';
-export const HOME = 'home';
-export const LEADERBOARD = 'leaderboard';
-export const NOTIFICATION = 'notification';
-export const SETTINGS = 'settings';
-export const ADD = 'add';
+export const HOME = 'Home';
+export const SEARCH = 'Search';
+export const NOTIFICATION = 'Notification';
+export const SETTINGS = 'Settings';
+export const ADD = 'Add';
 
 
 

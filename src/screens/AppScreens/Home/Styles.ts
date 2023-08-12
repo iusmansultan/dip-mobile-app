@@ -1,40 +1,59 @@
-import {StyleSheet} from 'react-native';
-import {BLACK, COLOR_SECANDRY} from '../../../helpers/Colors';
+import {StyleSheet, Platform} from 'react-native';
+import {BLACK, COLOR_SECANDRY, WHITE} from '../../../helpers/Colors';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import {getFontSize} from '../../../utils/GetFontSize';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 40,
     alignItems: 'center',
     // justifyContent: 'center',
   },
-  labelText: {
-    color: BLACK,
-    fontSize: 25,
-    fontFamily: 'Poppins-Bold',
-    marginTop: 80,
-    marginBottom: 170,
-  },
 
-  buttonContainer: {
+  headerContainer: {
+    height: Platform.OS === 'ios' ? hp('10%') : hp('7%'),
     width: '100%',
-    height: 48,
-    borderRadius: 8,
-    borderWidth: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
     flexDirection: 'row',
-    borderColor: '#D8DADC',
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    backgroundColor: WHITE,
+    borderColor: '#D9D9D9',
+    paddingHorizontal: wp('3%'),
+  },
+  logo: {
+    width: 30,
+    height: 30,
+  },
+  tabButtons: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
-    gap: 40,
+    gap: 10,
+  },
+  inActiveText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: getFontSize(20),
+    color: BLACK,
+  },
+  activeText: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: getFontSize(20),
+    color: BLACK,
+    textDecorationLine: 'underline',
   },
 
-  buttonText: {
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 16,
-    color: COLOR_SECANDRY,
+  containerList: {
+    width: '100%',
+    padding: 10,
   },
+
+ 
 });
 
 export default styles;
