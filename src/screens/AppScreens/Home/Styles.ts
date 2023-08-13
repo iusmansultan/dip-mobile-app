@@ -1,5 +1,11 @@
 import {StyleSheet, Platform} from 'react-native';
-import {BLACK, COLOR_SECANDRY, WHITE} from '../../../helpers/Colors';
+import {
+  BLACK,
+  COLOR_SECANDRY,
+  REGULAR,
+  SEMIBOLD,
+  WHITE,
+} from '../../../helpers/Colors';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -34,26 +40,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10,
+    gap: 15,
   },
   inActiveText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: getFontSize(20),
+    fontFamily: REGULAR,
+    fontSize: getFontSize(18),
     color: BLACK,
   },
   activeText: {
-    fontFamily: 'Poppins-Bold',
-    fontSize: getFontSize(20),
+    fontFamily: SEMIBOLD,
+    fontSize: getFontSize(18),
     color: BLACK,
     textDecorationLine: 'underline',
   },
 
   containerList: {
     width: '100%',
-    padding: 10,
+    // padding: 10,
   },
-
- 
+  icon: {
+    width: 20,
+    height: 20,
+  },
 });
 
 export default styles;

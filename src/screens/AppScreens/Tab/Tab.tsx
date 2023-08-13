@@ -26,6 +26,8 @@ import {
   SETTINGS,
   ADD,
 } from '../../../helpers/RoutesName';
+import {getFontSize} from '../../../utils/GetFontSize';
+import {MEDIUM} from '../../../helpers/Colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -61,6 +63,11 @@ const MyTabs = () => {
               }
             />
           ),
+          headerTitleAlign: 'center', // Align header title in the center
+          headerTitleStyle: {
+            fontSize: getFontSize(16), // Customize font size or other styles
+            fontFamily: MEDIUM,
+          },
           // headerShown: false,
         }}
       />
@@ -93,6 +100,11 @@ const MyTabs = () => {
               }
             />
           ),
+          headerTitleAlign: 'center', // Align header title in the center
+          headerTitleStyle: {
+            fontSize: getFontSize(16), // Customize font size or other styles
+            fontFamily: MEDIUM,
+          },
           // headerShown: false,
         }}
       />

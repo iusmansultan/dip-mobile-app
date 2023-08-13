@@ -2,14 +2,17 @@ import {View, Text, Image} from 'react-native';
 import React from 'react';
 import styles from './Styles';
 
-const AccountCard = () => {
+const AccountCard: React.FC<any> = ({data}) => {
   const imageUrl =
-    'https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?cs=srgb&dl=pexels-rajesh-tp-1633578.jpg&fm=jpg';
+    'https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg';
   return (
     <View style={styles.postCard}>
       <View style={styles.flexStart}>
-        <Image source={{uri:imageUrl}} style={styles.profileImage} />
-        <Text style={styles.userName}>User Name</Text>
+        <Image
+          source={{uri: data.imageUrl !== '' ? data.imageUrl : imageUrl}}
+          style={styles.profileImage}
+        />
+        <Text style={styles.userName}>{data.name}</Text>
       </View>
       <Image
         source={require('../../assets/icons/addAccount.png')}

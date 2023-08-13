@@ -4,6 +4,10 @@ import {
   COLOR_PRIMARY,
   COLOR_SECANDRY,
   WHITE,
+  REGULAR,
+  MEDIUM,
+  SEMIBOLD,
+  BOLD,
 } from '../../../helpers/Colors';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {getFontSize} from '../../../utils/GetFontSize';
@@ -13,6 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     alignItems: 'center',
+    backgroundColor: WHITE,
   },
 
   tabsContainer: {
@@ -36,14 +41,14 @@ const styles = StyleSheet.create({
   },
   activeTabText: {
     fontSize: getFontSize(14),
-    fontWeight: 'bold',
     color: BLACK,
+    fontFamily: SEMIBOLD,
   },
   inActiveTabText: {
     fontSize: getFontSize(14),
     color: BLACK,
+    fontFamily: MEDIUM,
   },
-
   flatList: {
     width: '100%',
   },

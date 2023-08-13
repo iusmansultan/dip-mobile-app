@@ -3,7 +3,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {BLACK, COLOR_PRIMARY, WHITE} from '../../helpers/Colors';
+import {BLACK, COLOR_PRIMARY, MEDIUM, WHITE} from '../../helpers/Colors';
 import {getFontSize} from '../../utils/GetFontSize';
 
 const styles = StyleSheet.create({
@@ -30,12 +30,15 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: getFontSize(14),
     color: BLACK,
+    fontFamily: MEDIUM,
+    width: '70%',
+    
   },
 
   profileImage: {
     width: 40,
     height: 40,
-    resizeMode: 'center',
+    resizeMode: 'cover',
     borderRadius: 40,
   },
 
