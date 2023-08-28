@@ -3,8 +3,10 @@ import React, {createContext, useContext, useState} from 'react';
 interface ApiContextType {
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  error: Error | null | string;
-  setError: React.Dispatch<React.SetStateAction<Error | null>>;
+  error: boolean;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
+  errorMessage: string;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
@@ -22,13 +24,16 @@ export const useApiContext = (): ApiContextType => {
 
 export const ApiProvider: React.FC<ApiProviderProps> = ({children}) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null | string>(null);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const value = {
     loading,
     setLoading,
     error,
     setError,
+    errorMessage,
+    setErrorMessage,
   };
 
   return <ApiContext.Provider value={value}>{children}</ApiContext.Provider>;

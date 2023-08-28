@@ -7,9 +7,17 @@ const CreateUser = async (data: any) => {
     const response = await AxiosCall({url: url, method: 'post', data: data});
     console.log(response);
 
+    if (response.success) {
+      return {
+        success: true,
+        message: 'Please verify your email',
+        data: response,
+      };
+    }
+
     return {
-      success: true,
-      message: 'Please verify your email',
+      success: false,
+      message: response.message,
       data: response,
     };
   } catch (error: any) {
@@ -20,6 +28,34 @@ const CreateUser = async (data: any) => {
     };
   }
 };
+const VerifyUser = async (data: any) => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.USER.VARIFY_USER;
+    const response = await AxiosCall({url: url, method: 'post', data: data});
+    console.log(response);
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'Verification Done, Please Sign IN.',
+        data: response,
+      };
+    }
+
+    return {
+      success: false,
+      message: response.message,
+      data: response,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
+
 const SignInUser = async (data: any) => {
   try {
     const url = BASE_URL + API_ENDPOINTS.USER.SIGNIN_USER;
@@ -40,4 +76,4 @@ const SignInUser = async (data: any) => {
   }
 };
 
-export {CreateUser, SignInUser};
+export {CreateUser, SignInUser, VerifyUser};

@@ -1,12 +1,22 @@
-import {View, ActivityIndicator, Modal} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  Animated,
+  Modal,
+  Image,
+  Text,
+  Easing,
+} from 'react-native';
 import React from 'react';
 import styles from './Styles';
 import {useApiContext} from '../../contextApi/ApiContext';
+import PrimaryButton from '../../components/PrimaryButton/PrimaryButton';
+// const errorIcon = require('../../assets/icons/errorIcon.png');
 
 const Loader = () => {
-  const {loading, setLoading, error, setError} = useApiContext();
+  const {loading} = useApiContext();
 
-  if (loading) {
+ if (loading) {
     return (
       <View style={styles.centeredView}>
         <Modal transparent={true} visible={true}>
@@ -24,7 +34,6 @@ const Loader = () => {
       </View>
     );
   }
-
   return <></>;
 };
 

@@ -5,6 +5,8 @@ import Login from '../screens/AuthScreens/Login/Login';
 import Signup from '../screens/AuthScreens/Signup/Signup';
 import ForgotPassword from '../screens/AuthScreens/ForgotPassword/ForgotPassword';
 import CreatePassword from '../screens/AuthScreens/CreatePassword/CreatePassword';
+import OTP from '../screens/AuthScreens/OTP/OTP';
+
 import { View } from 'react-native';
 import {
   SPLASH,
@@ -12,6 +14,7 @@ import {
   SIGNUP,
   FORGOT_PASSWORD,
   CREATE_PASSWORD,
+  VERIFY_OTP,
 } from '../helpers/RoutesName';
 import { BLACK, COLOR_PRIMARY, WHITE } from '../helpers/Colors';
 import { getFontSize } from '../utils/GetFontSize';
@@ -88,6 +91,23 @@ const AuthStack = () => {
         component={CreatePassword}
         options={{
           title: 'Create New Password',
+          headerStyle: {
+            backgroundColor: WHITE,
+          },
+          headerTitleStyle: {
+            color: BLACK,
+            // fontFamily: 'Poppins-Regular',
+            // fontSize: getFontSize(14),
+          },
+          headerBackTitleVisible: false,
+          headerTintColor: BLACK,
+        }}
+      />
+      <Stack.Screen
+        name={VERIFY_OTP}
+        component={OTP}
+        options={{
+          title: 'Verify Email',
           headerStyle: {
             backgroundColor: WHITE,
           },

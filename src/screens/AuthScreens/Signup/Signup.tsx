@@ -5,31 +5,20 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import styles from './Styles';
 import InputField from '../../../components/InputField/InputField';
 import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
-import {LOGIN} from '../../../helpers/RoutesName';
+import {LOGIN, VERIFY_OTP} from '../../../helpers/RoutesName';
 import {CreateUser} from '../../../services/UserService';
 
 import {NavigationProp} from '@react-navigation/native';
 import {useApiContext} from '../../../contextApi/ApiContext';
 
-type RootStackParamList = {
-  splash: undefined;
-  login: undefined;
-  signup: undefined;
-  // Add more screens and their parameter types here
-};
-
-// Assuming you have a component that receives the navigation prop
-type MyComponentProps = {
-  navigation: NavigationProp<RootStackParamList>;
-};
-
-const Signup: React.FC<MyComponentProps> = ({navigation}) => {
-  const {loading, setLoading, error, setError} = useApiContext();
+const Signup = ({navigation}) => {
+  const {setLoading, setError, setErrorMessage} = useApiContext();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,9 +34,25 @@ const Signup: React.FC<MyComponentProps> = ({navigation}) => {
       email,
       password,
     };
-    const response = await CreateUser(data);
-    console.log(response);
+    const {success, message} = await CreateUser(data);
+    console.log(message);
     setLoading(false);
+    if (success) {
+      navigation.navigate(VERIFY_OTP,{email:email});
+    } else {
+      Alert.alert(
+        'Error',
+        message,
+        [
+      
+          {
+            text: 'OK',
+            onPress: () => console.log('OK Pressed'),
+          },
+        ],
+        {cancelable: false},
+      );
+    }
   };
 
   return (

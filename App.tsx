@@ -13,6 +13,7 @@ let persistor = persistStore(store);
 import {ApiProvider} from './src/contextApi/ApiContext';
 
 import Loader from './src/screens/NetworkActivity/NetworkActivity';
+import OnError from './src/screens/NetworkActivity/OnError';
 
 function App(): JSX.Element {
   return (

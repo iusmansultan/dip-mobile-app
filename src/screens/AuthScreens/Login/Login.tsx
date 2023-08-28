@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import styles from './Styles';
@@ -46,12 +47,28 @@ const Login: React.FC<MyComponentProps> = ({navigation}) => {
     console.log(response);
     setLoading(false);
 
-    // dispatch(
-    //   saveUser({
-    //     isLoggedIn: true,
-    //     user: {},
-    //   }),
-    // );
+    if (response.success) {
+      dispatch(
+        saveUser({
+          isLoggedIn: true,
+          user: {
+            ...response.data
+          },
+        }),
+      );
+    } else {
+      Alert.alert(
+        'Error',
+        response.message,
+        [
+          {
+            text: 'OK',
+            onPress: () => console.log('OK Pressed'),
+          },
+        ],
+        {cancelable: false},
+      );
+    }
   };
   return (
     <ScrollView
