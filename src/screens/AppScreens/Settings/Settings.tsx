@@ -16,109 +16,124 @@ import {ACCOUNT} from '../../../helpers/RoutesName';
 import {COLOR_PRIMARY} from '../../../helpers/Colors';
 import {useAppDispatch} from '../../../redux/Hooks';
 import {logoutUser} from '../../../redux/User/UserSlice';
+import ReportCard from '../../../components/ReportCard/ReportCard';
+import GuideCard from '../../../components/GuideCard/GuideCard';
+import { ReportModal } from '../../../utils/DataModels';
 
 const Settings: React.FC = ({navigation}) => {
   const dispatch = useAppDispatch();
-  const options = [
+  const [tabs, setTabs] = useState<any>([
     {
       id: 1,
-      title: 'Sound',
-      isOFF: true,
-      icon: require('../../../assets/icons/soundIcon.png'),
+      title: 'Reports',
+      isActive: true,
     },
+
     {
       id: 2,
-      title: 'Vibration',
-      isOFF: true,
-      icon: require('../../../assets/icons/vibrationIcon.png'),
+      title: 'Guides',
+      isActive: false,
+    },
+  ]);
+
+  const guidesData = [{id: 1}, {id: 2}, {id: 3}];
+  const [reportsData, setReportData] = useState<ReportModal[]>([
+    {
+      id: '343434',
+      name: 'John Doe',
+      description: 'this is test',
+      images: [
+        'https://blizin.com/public/images/uploads/articles/budgetfriendlynorthernareasinpakistanforhoneymoon-A-1564311831.webp',
+      ],
+      guideId: '2312312',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      postedBy: {},
     },
     {
-      id: 3,
-      title: 'Notification',
-      isOFF: false,
-      icon: require('../../../assets/icons/notificationIcon.png'),
+      id: '3344566',
+      name: 'Johns ',
+      description: 'this is test',
+      images: [
+        'https://www.visitswatvalley.com/images/Northern-Areas-of-Pakistan.jpg',
+        'https://hunzaadventuretours.com/wp-content/uploads/2022/03/k2-base-camp-trek-Karakoram-Pakistan.jpg',
+      ],
+      guideId: '2312312',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      postedBy: {},
     },
-    {
-      id: 4,
-      title: 'Daily Changes',
-      isOFF: true,
-      icon: require('../../../assets/icons/changesIcon.png'),
-    },
-    {
-      id: 5,
-      title: 'Number Facts',
-      isOFF: false,
-      icon: require('../../../assets/icons/factIcon.png'),
-    },
-  ];
+  ]);
 
   const handleLogout = () => {
     dispatch(logoutUser());
   };
 
-  const handleAccount = () => {
-    navigation.navigate(ACCOUNT);
+  const onTabPress = (id: number) => {
+    const updatedTabs = tabs.map((item: any) =>
+      item.id === id ? {...item, isActive: true} : {...item, isActive: false},
+    );
+
+    setTabs(updatedTabs);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.labelText}>Settings</Text>
+      <View style={styles.profileImageContainer}></View>
 
-      <TouchableOpacity onPress={handleAccount} style={styles.accountContainer}>
-        <View style={styles.avatarContainer}>
-          <Image
-            source={require('../../../assets/icons/accountAvatar.png')}
-            style={styles.avatar}
-          />
+      <Text style={styles.profileName}>John Doe</Text>
+      <Text style={styles.userNameText}>@johndoe</Text>
+
+      <View style={styles.statsContainer}>
+        <View style={styles.boxContainer}>
+          <Text style={styles.valueText}>300</Text>
+          <Text style={styles.labelText}>Reports</Text>
         </View>
-        <View style={styles.accountInfo}>
-          <Text style={styles.title}>Account</Text>
-          <Text style={styles.description}>Make changes to your account</Text>
+        <View style={styles.boxContainer}>
+          <Text style={styles.valueText}>20K</Text>
+          <Text style={styles.labelText}>Guides</Text>
         </View>
-        <Image
-          source={require('../../../assets/icons/rightArrow.png')}
-          style={styles.arrow}
-        />
-      </TouchableOpacity>
+        <View style={styles.boxContainer}>
+          <Text style={styles.valueText}>1</Text>
+          <Text style={styles.labelText}>Followers</Text>
+        </View>
+      </View>
 
-      {options.map((item: any, index: number) => (
-        <OptionTile key={item.id} item={item} />
-      ))}
+      <Text style={styles.bioText}>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer
+        vulputate sem a nibh rutrum consequat. Nam quis nulla. Cum sociis
+        natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus.
+      </Text>
 
-      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-        <Image
-          source={require('../../../assets/icons/logout.png')}
-          style={styles.logout}
-        />
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
+      <View style={styles.tabsContainer}>
+        {tabs.map((item: any, index: number) => {
+          return (
+            <TouchableOpacity
+              onPress={() => onTabPress(item.id)}
+              key={index}
+              style={item.isActive ? styles.activeTab : styles.inActiveTab}>
+              <Text
+                style={
+                  item.isActive ? styles.activeTabText : styles.inActiveTabText
+                }>
+                {item.title}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        style={styles.flatList}
+        data={tabs[0].isActive ? reportsData : guidesData}
+        renderItem={({item}) =>
+          tabs[0].isActive ? <ReportCard data={item} /> : <GuideCard />
+        }
+      />
     </View>
   );
 };
 
 export default Settings;
-
-const OptionTile = ({item}) => {
-  const [isEnabled, setIsEnabled] = useState(item.isOFF);
-
-  const toggleSwitch = () => {
-    setIsEnabled((previousState: any) => !previousState);
-  };
-  return (
-    <View style={styles.optionTile}>
-      <View style={styles.leftView}>
-        <View style={styles.avatarContainer}>
-          <Image source={item.icon} style={styles.avatar} />
-        </View>
-        <Text style={styles.title}>{item.title}</Text>
-      </View>
-      <Switch
-        trackColor={{false: '#767577', true: COLOR_PRIMARY}}
-        thumbColor={isEnabled ? 'white' : 'white'}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
-    </View>
-  );
-};

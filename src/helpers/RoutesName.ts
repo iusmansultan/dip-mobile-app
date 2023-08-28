@@ -5,6 +5,7 @@ export const LOGIN = 'login';
 export const SIGNUP = 'signup';
 export const FORGOT_PASSWORD = 'forgotpassword';
 export const CREATE_PASSWORD = 'createpassword';
+export const VERIFY_OTP = 'verifyOTP';
 
 
 

@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {BLACK, COLOR_SECANDRY, WHITE} from '../../../helpers/Colors';
-import { heightPercentageToDP, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { getFontSize } from '../../../utils/GetFontSize';
 
 const styles = StyleSheet.create({
@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: wp('4%'),
     alignItems: 'center',
-    justifyContent: 'space-between',
+    height:'100%',
+    // justifyContent: 'space-between',
   },
   labelText: {
     color: BLACK,
@@ -19,10 +20,19 @@ const styles = StyleSheet.create({
     marginBottom: 33,
   },
   forgotPasswordContianer: {
+    width: '100%',
     justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    flexDirection:'row',
     height: 30,
-    marginBottom: 20,
+    marginBottom: 10,
+  },
+  signUpTextContianer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // height: 20,
+    marginBottom: 10,
   },
   textContainer: {
     justifyContent: 'center',
@@ -35,11 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Poppins-Regular',
   },
-  containText: {
-    color: COLOR_SECANDRY,
-    fontSize: 12,
-    fontFamily: 'Poppins-Medium',
-  },
+
   containTextBold: {
     color: COLOR_SECANDRY,
     fontSize: 12,
@@ -52,14 +58,7 @@ const styles = StyleSheet.create({
     gap: 10,
     marginTop: 15,
   },
-  bottomTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 3,
-    marginTop: 10,
-    marginBottom: 10,
-  },
+
   orText: {
     color: BLACK,
     fontFamily: 'Poppins-Regular',
@@ -119,11 +118,11 @@ const styles = StyleSheet.create({
     color: WHITE,
   },
   scrollView: {
-    height: heightPercentageToDP('100%'),
+    height: '100%',
     backgroundColor: WHITE,
   },
   contentContainerStyle: {
-    flexGrow: 1,
+    flexGrow: 1,    
   },
 });
 

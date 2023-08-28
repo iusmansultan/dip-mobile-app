@@ -3,14 +3,14 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { COLOR_PRIMARY, WHITE } from '../../helpers/Colors';
+import {COLOR_PRIMARY, WHITE, BOLD, SEMIBOLD} from '../../helpers/Colors';
 import { getFontSize } from '../../utils/GetFontSize';
 
 const styles = StyleSheet.create({
   button: {
     width: '100%',
     marginBottom: 30,
-    height: 56,
+    height: 50,
     borderRadius: 8,
     backgroundColor: COLOR_PRIMARY,
     alignItems: 'center',
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   disabledButton: {
     width: '100%',
     marginBottom: 30,
-    height: 56,
+    height: 50,
     borderRadius: 8,
     backgroundColor: COLOR_PRIMARY,
     alignItems: 'center',
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: WHITE,
-    fontSize: getFontSize(20),
-    fontFamily: 'Poppins-SemiBold',
+    fontSize: getFontSize(16),
+    fontFamily: SEMIBOLD,
   },
 });
 

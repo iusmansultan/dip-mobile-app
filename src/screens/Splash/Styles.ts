@@ -5,6 +5,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { getFontSize } from '../../utils/GetFontSize';
+import {REGULAR} from '../../helpers/Colors';
 
 
 const styles = StyleSheet.create({
@@ -25,7 +26,20 @@ const styles = StyleSheet.create({
   labelText: {
     color: BLACK,
     fontSize: getFontSize(40),
-    fontFamily: 'Poppins-Regular',
+    fontFamily: REGULAR,
+  },
+  bottomTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 3,
+    marginTop: 10,
+    marginBottom: 15,
+  },
+  containText: {
+    color: COLOR_SECANDRY,
+    fontSize: 12,
+    fontFamily: 'Poppins-Medium',
   },
 });
 

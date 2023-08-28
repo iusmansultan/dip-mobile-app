@@ -10,11 +10,18 @@ import {persistStore} from 'redux-persist';
 
 let persistor = persistStore(store);
 
+import {ApiProvider} from './src/contextApi/ApiContext';
+
+import Loader from './src/screens/NetworkActivity/NetworkActivity';
+
 function App(): JSX.Element {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Router />
+        <ApiProvider>
+          <Loader />
+          <Router />
+        </ApiProvider>
       </PersistGate>
     </Provider>
   );

@@ -6,13 +6,15 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './Styles';
 import InputField from '../../../components/InputField/InputField';
 import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
 import {LOGIN} from '../../../helpers/RoutesName';
+import {CreateUser} from '../../../services/UserService';
 
 import {NavigationProp} from '@react-navigation/native';
+import {useApiContext} from '../../../contextApi/ApiContext';
 
 type RootStackParamList = {
   splash: undefined;
@@ -27,68 +29,59 @@ type MyComponentProps = {
 };
 
 const Signup: React.FC<MyComponentProps> = ({navigation}) => {
+  const {loading, setLoading, error, setError} = useApiContext();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const handleOnLogin = () => {
     navigation.navigate(LOGIN);
   };
+  const handleOnSignUp = async () => {
+    setLoading(true);
+    const data = {
+      name,
+      email,
+      password,
+    };
+    const response = await CreateUser(data);
+    console.log(response);
+    setLoading(false);
+  };
 
   return (
-    <ImageBackground
-      source={require('../../../assets/images/authBg.png')}
-      style={styles.container}>
-      <SafeAreaView>
-        <Text style={styles.labelText}>Sign up</Text>
+    <View style={styles.container}>
+      <InputField
+        title="Username"
+        placeholderText="username"
+        onChange={text => setName(text)}
+        isSecureText={false}
+      />
+      <InputField
+        title="Email address"
+        placeholderText="example@example.com"
+        onChange={text => setEmail(text)}
+        isSecureText={false}
+      />
+      <InputField
+        title="Create a password"
+        placeholderText="must be 8 characters"
+        onChange={text => setPassword(text)}
+        isSecureText={true}
+      />
 
-        <InputField
-          title="Username"
-          placeholderText="username"
-          onChange={() => {}}
-          isSecureText={false}
-        />
-        <InputField
-          title="Email address"
-          placeholderText="example@example.com"
-          onChange={() => {}}
-          isSecureText={false}
-        />
-        <InputField
-          title="Create a password"
-          placeholderText="must be 8 characters"
-          onChange={() => {}}
-          isSecureText={true}
-        />
+      <View style={styles.forgotPasswordContianer}></View>
 
-        <View style={styles.forgotPasswordContianer}></View>
+      <PrimaryButton title="Sign up" onPress={handleOnSignUp} />
 
-        <PrimaryButton title="Sign up" onPress={() => {}} />
-
-        <View style={styles.dividerContainer}>
-          <View style={styles.divider}></View>
-          <Text style={styles.orText}>or</Text>
-          <View style={styles.divider}></View>
-        </View>
-
-        <View style={styles.socialButton}>
-          <Image
-            source={require('../../../assets/icons/googleIcon.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.socialText}>Log in with Google</Text>
-        </View>
-        <View style={styles.socialButton}>
-          <Image
-            source={require('../../../assets/icons/appleIcon.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.socialText}>Log in with Apple</Text>
-        </View>
-        <View style={styles.bottomTextContainer}>
-          <Text style={styles.containText}>Already have an account?</Text>
-          <TouchableOpacity onPress={handleOnLogin}>
-            <Text style={styles.containTextBold}>Log in</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    </ImageBackground>
+      <View style={styles.bottomTextContainer}>
+        <Text style={styles.containText}>Already have an account?</Text>
+        <TouchableOpacity onPress={handleOnLogin}>
+          <Text style={styles.containTextBold}>Log in</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 

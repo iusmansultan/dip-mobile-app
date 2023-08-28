@@ -3,97 +3,105 @@ import {
   BLACK,
   COLOR_PRIMARY,
   COLOR_SECANDRY,
+  MEDIUM,
+  REGULAR,
+  SEMIBOLD,
   WHITE,
 } from '../../../helpers/Colors';
+import {getFontSize} from '../../../utils/GetFontSize';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'grey',
+    backgroundColor: WHITE,
     padding: 20,
     alignItems: 'center',
     // justifyContent: 'center',
   },
-  labelText: {
-    color: COLOR_SECANDRY,
-    fontSize: 25,
-    fontFamily: 'Poppins-Medium',
-    marginTop: Platform.OS === 'ios' ? '18%' : '5%',
-    marginBottom: 35,
+  profileImageContainer: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'grey',
+    borderRadius: 100,
   },
-  accountContainer: {
+  profileName: {
+    marginTop: 10,
+    fontFamily: MEDIUM,
+    color: BLACK,
+    fontSize: getFontSize(16),
+  },
+  userNameText: {
+    marginTop: 5,
+    fontFamily: REGULAR,
+    color: COLOR_SECANDRY,
+    fontSize: getFontSize(12),
+  },
+  statsContainer: {
+    width: '100%',
+    height: 60,
+    borderWidth: 1,
+    borderColor: COLOR_SECANDRY,
+    borderRadius: 12,
+    marginTop: 15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 10,
-    marginBottom: 50,
+    paddingHorizontal: 15,
+  },
+  boxContainer: {
+    alignItems: 'center',
+  },
+  valueText: {
+    fontFamily: SEMIBOLD,
+    color: BLACK,
+    fontSize: getFontSize(14),
+  },
+  labelText: {
+    fontFamily: REGULAR,
+    color: BLACK,
+    fontSize: getFontSize(12),
+  },
+  bioText: {
+    fontFamily: REGULAR,
+    color: BLACK,
+    fontSize: getFontSize(13),
+    marginTop: 10,
   },
 
-  avatarContainer: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#ebebeb',
-    borderRadius: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatar: {
-    width: 20,
-    height: 20,
-  },
-  accountInfo: {
-    width: '70%',
-  },
-  title: {
-    color: 'black',
-    fontFamily: 'Poppins-Medium',
-    fontSize: 14,
-  },
-  description: {
-    color: COLOR_SECANDRY,
-    fontFamily: 'Poppins-Medium',
-    fontSize: 14,
-  },
-  arrow: {
-    width: 15,
-    height: 15,
-    resizeMode: 'contain',
-  },
-  optionTile: {
-    width: '90%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 10,
-    marginBottom: 20,
-  },
-  leftView: {
+  tabsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10,
-  },
-  logoutButton: {
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: '#E3E3E3',
     width: '100%',
-    height: 50,
-    borderRadius: 10,
-    marginTop: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 10,
+    height: heightPercentageToDP('5%'),
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    gap: 20,
   },
-  logoutText: {
-    color: COLOR_SECANDRY,
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 14,
+
+  activeTab: {
+    borderBottomWidth: 1,
+    borderBlockColor: BLACK,
+    paddingBottom: 5,
   },
-  logout: {
-    width: 15,
-    height: 15,
+  inActiveTab: {
+    borderBottomWidth: 1,
+    borderBlockColor: 'transparent',
+    paddingBottom: 5,
+  },
+  activeTabText: {
+    fontSize: getFontSize(14),
+    color: BLACK,
+    fontFamily: SEMIBOLD,
+  },
+  inActiveTabText: {
+    fontSize: getFontSize(14),
+    color: BLACK,
+    fontFamily: MEDIUM,
+  },
+  flatList: {
+    width: '100%',
   },
 });
 

@@ -112,6 +112,7 @@ const MyTabs = () => {
         name={SETTINGS}
         component={Settings}
         options={{
+          headerTitle: 'My Profile',
           tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
@@ -121,7 +122,11 @@ const MyTabs = () => {
               }
             />
           ),
-          headerShown: false,
+          headerTitleAlign: 'center', // Align header title in the center
+          headerTitleStyle: {
+            fontSize: getFontSize(16), // Customize font size or other styles
+            fontFamily: MEDIUM,
+          },
         }}
       />
     </Tab.Navigator>

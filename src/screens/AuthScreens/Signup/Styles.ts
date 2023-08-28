@@ -1,16 +1,23 @@
 import {StyleSheet} from 'react-native';
-import {BLACK, COLOR_SECANDRY} from '../../../helpers/Colors';
+import {
+  BLACK,
+  COLOR_SECANDRY,
+  BOLD,
+  MEDIUM,
+  REGULAR,
+  SEMIBOLD,
+} from '../../../helpers/Colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 40,
+    padding: 15,
   },
   labelText: {
     color: BLACK,
     fontSize: 25,
-    fontFamily: 'Poppins-Bold',
+    fontFamily: MEDIUM,
     marginTop: '5%',
     marginBottom: 33,
   },
@@ -29,17 +36,17 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     color: COLOR_SECANDRY,
     fontSize: 12,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: REGULAR,
   },
   containText: {
     color: COLOR_SECANDRY,
     fontSize: 12,
-    fontFamily: 'Poppins-Medium',
+    fontFamily: MEDIUM,
   },
   containTextBold: {
     color: COLOR_SECANDRY,
     fontSize: 12,
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: SEMIBOLD,
   },
   dividerContainer: {
     flexDirection: 'row',
@@ -52,11 +59,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 3,
-    marginTop: 30,
+    marginTop: 10,
   },
   orText: {
     color: COLOR_SECANDRY,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: REGULAR,
     fontSize: 12,
   },
   divider: {
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   socialText: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: REGULAR,
     fontSize: 12,
     color: COLOR_SECANDRY,
   },

@@ -35,7 +35,7 @@ const AuthStack = () => {
         component={Login}
         options={{
           headerLeft: () => <View></View>,
-          title: 'Log In or Sign Up',
+          title: 'Log In ',
           headerStyle: {
             backgroundColor: WHITE,
           },
@@ -51,7 +51,20 @@ const AuthStack = () => {
       <Stack.Screen
         name={SIGNUP}
         component={Signup}
-        options={{headerShown: false}}
+        options={{
+          headerLeft: () => <View></View>,
+          title: 'Sign Up',
+          headerStyle: {
+            backgroundColor: WHITE,
+          },
+          headerTitleStyle: {
+            color: BLACK,
+            // fontFamily: 'Poppins-Regular',
+            // fontSize: getFontSize(14),
+          },
+          headerBackTitleVisible: false,
+          headerTintColor: BLACK,
+        }}
       />
       <Stack.Screen
         name={FORGOT_PASSWORD}

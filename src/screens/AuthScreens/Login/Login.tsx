@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './Styles';
 import InputField from '../../../components/InputField/InputField';
 import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
@@ -15,6 +15,8 @@ import {SIGNUP, FORGOT_PASSWORD} from '../../../helpers/RoutesName';
 import {NavigationProp} from '@react-navigation/native';
 import {useAppDispatch} from '../../../redux/Hooks';
 import {saveUser} from '../../../redux/User/UserSlice';
+import {SignInUser} from '../../../services/UserService';
+import {useApiContext} from '../../../contextApi/ApiContext';
 
 type RootStackParamList = {
   splash: undefined;
@@ -30,17 +32,26 @@ type MyComponentProps = {
 
 const Login: React.FC<MyComponentProps> = ({navigation}) => {
   const dispatch = useAppDispatch();
+  const {loading, setLoading, error, setError} = useApiContext();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
   const handleOnSignup = () => {
     navigation.navigate(SIGNUP);
   };
 
-  const handleSignIn = () => {
-    dispatch(
-      saveUser({
-        isLoggedIn: true,
-        user: {},
-      }),
-    );
+  const handleSignIn = async () => {
+    setLoading(true);
+    const response = await SignInUser({email, password});
+    console.log(response);
+    setLoading(false);
+
+    // dispatch(
+    //   saveUser({
+    //     isLoggedIn: true,
+    //     user: {},
+    //   }),
+    // );
   };
   return (
     <ScrollView
@@ -80,15 +91,16 @@ const Login: React.FC<MyComponentProps> = ({navigation}) => {
           <InputField
             title="Email address"
             placeholderText="example@example.com"
-            onChange={() => {}}
+            onChange={text => setEmail(text)}
             isSecureText={false}
           />
           <InputField
             title="Password"
             placeholderText="*********"
-            onChange={() => {}}
+            onChange={text => setPassword(text)}
             isSecureText={true}
           />
+
           <TouchableOpacity
             onPress={() => {
               navigation.navigate(FORGOT_PASSWORD);
@@ -96,22 +108,20 @@ const Login: React.FC<MyComponentProps> = ({navigation}) => {
             style={styles.forgotPasswordContianer}>
             <Text style={styles.forgotPasswordText}>Forgot your Password?</Text>
           </TouchableOpacity>
-        </>
-
-        <>
-          <View style={styles.bottomTextContainer}>
-            <Text style={styles.containText}>
-              By selecting Agree and continue, I agree to dip's Terms of
-              Service, Payments Terms of Service and acknowledge the Privacy
-              Policy.
-            </Text>
-          </View>
-
           <PrimaryButton
             isDisbaled={false}
-            title="Agree & Continue "
+            title="Login"
             onPress={handleSignIn}
           />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(SIGNUP);
+            }}
+            style={styles.signUpTextContianer}>
+            <Text style={styles.forgotPasswordText}>
+              Don't have a account? Sign Up
+            </Text>
+          </TouchableOpacity>
         </>
       </View>
     </ScrollView>
