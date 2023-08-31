@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import styles from './Styles';
 import show from '../../assets/icons/show.png';
 import hidden from '../../assets/icons/hidden.png';
+import {BLACK} from '../../helpers/Colors';
 
 type DescriptionFieldProps = {
   title: string;
@@ -19,10 +20,10 @@ const DescriptionField: React.FC<DescriptionFieldProps> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.labelText}>{title}</Text>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder={placeholderText}
+          placeholderTextColor={BLACK}
           onChangeText={(text: string) => onChange(text)}
           style={styles.input}
           multiline={true}

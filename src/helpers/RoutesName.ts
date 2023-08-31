@@ -22,6 +22,7 @@ export const HOW_TO_PLAY = 'howtoplay';
 export const PLAY = 'play';
 export const ACCOUNT = 'account';
 export const RESET_PASSWORD = 'resetpassword';
+export const ADD_NEW_GUIDE = 'addNewGuide';
 
 
 

@@ -25,13 +25,14 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     height: 153,
-    borderRadius: 8,
+    borderRadius: 12,
     marginTop: 4,
-    paddingHorizontal: 19,
-    paddingVertical:10,
-    backgroundColor: TEXT_INPUT_BACKGROUND,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: '#D8DADC',
     alignItems: 'flex-start',
-    justifyContent:'flex-start'
+    justifyContent: 'flex-start',
   },
   input: {
     color: BLACK,
@@ -39,7 +40,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     fontFamily: 'Poppins-Medium',
-  
   },
   visibilityIcon: {
     width: 20,

@@ -84,7 +84,11 @@ const MyTabs = () => {
               }
             />
           ),
-          headerShown: false,
+          headerTitleAlign: 'center', // Align header title in the center
+          headerTitleStyle: {
+            fontSize: getFontSize(16), // Customize font size or other styles
+            fontFamily: MEDIUM,
+          },
         }}
       />
       <Tab.Screen

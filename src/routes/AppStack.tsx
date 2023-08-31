@@ -6,6 +6,7 @@ import HowToPlay from '../screens/AppScreens/HowToPlay/HowToPlay';
 import Play from '../screens/AppScreens/Play/Play';
 import Account from '../screens/AppScreens/Account/Account';
 import ResetPassword from '../screens/AppScreens/ResetPassword/ResetPassword';
+import AddNewGuide from '../screens/AppScreens/AddNewGuide/AddNewGuide';
 
 import {
   SPLASH,
@@ -14,6 +15,7 @@ import {
   PLAY,
   ACCOUNT,
   RESET_PASSWORD,
+  ADD_NEW_GUIDE,
 } from '../helpers/RoutesName';
 import {COLOR_PRIMARY, WHITE} from '../helpers/Colors';
 
@@ -22,7 +24,6 @@ const Stack = createStackNavigator();
 const AppStack = () => {
   return (
     <Stack.Navigator initialRouteName={MY_TABS}>
-    
       <Stack.Screen
         name={MY_TABS}
         component={MyTabs}
@@ -33,6 +34,21 @@ const AppStack = () => {
         component={HowToPlay}
         options={{
           title: 'How to play',
+          headerStyle: {
+            backgroundColor: COLOR_PRIMARY,
+          },
+          headerTitleStyle: {
+            color: WHITE,
+          },
+          headerBackTitleVisible: false,
+          headerTintColor: WHITE,
+        }}
+      />
+      <Stack.Screen
+        name={ADD_NEW_GUIDE}
+        component={AddNewGuide}
+        options={{
+          title: 'Add New Guide',
           headerStyle: {
             backgroundColor: COLOR_PRIMARY,
           },
