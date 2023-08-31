@@ -1,28 +1,20 @@
-import {
-  Text,
-  ImageBackground,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-} from 'react-native';
+import {View, ScrollView, Alert} from 'react-native';
 import React, {useState} from 'react';
 import styles from './Styles';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 import InputField from '../../../components/InputField/InputField';
 import DescriptionField from '../../../components/DescriptionField/DescriptionField';
 import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
+import {CreateNewGuide} from '../../../services/GuideService';
+import {useNotification} from '../../../contextApi/ApiContext';
+import {useAppSelector} from '../../../redux/Hooks';
 
 const AddNewGuide: React.FC = ({navigation}) => {
+  const {showLoading, showSuccess, showError} = useNotification();
+  const user = useAppSelector((state: any) => state.user.value.user);
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [isDisbaled, setIsDisabled] = useState<boolean>(true);
-
-  const onHandleAddNewGuide = () => {
-    navigation.navigate('');
-  };
 
   const onChangeTitle = (text: string) => {
     setTitle(text);
@@ -39,6 +31,26 @@ const AddNewGuide: React.FC = ({navigation}) => {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
+    }
+  };
+
+  const onSaveGuide = async () => {
+    console.log(user);
+    const body = {
+      title,
+      description,
+      createdAt: new Date(),
+      createdBy: user._id,
+    };
+    console.log('body=>', body);
+    showLoading(true);
+    const response = await CreateNewGuide(body);
+    showLoading(false);
+    if (response.success) {
+      showSuccess(response.message);
+      navigation.goBack();
+    } else {
+      showError(response.message);
     }
   };
 
@@ -60,7 +72,11 @@ const AddNewGuide: React.FC = ({navigation}) => {
         />
       </ScrollView>
 
-      <PrimaryButton title="Save" isDisbaled={isDisbaled} onPress={() => {}} />
+      <PrimaryButton
+        title="Save"
+        isDisbaled={isDisbaled}
+        onPress={onSaveGuide}
+      />
     </View>
   );
 };

@@ -10,4 +10,7 @@ export const API_ENDPOINTS = {
     UPDATE_PROFILE: 'user/update',
     DELETE_USER: 'user/delete',
   },
+  GUIDE: {
+    CREATE_NEW_GUIDE: 'guide/createGuide',
+  },
 };

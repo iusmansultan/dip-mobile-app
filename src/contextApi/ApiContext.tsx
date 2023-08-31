@@ -1,40 +1,82 @@
-import React, {createContext, useContext, useState} from 'react';
+// NotificationContext.tsx
+import React, {createContext, useContext, useState, ReactNode} from 'react';
 
-interface ApiContextType {
+interface NotificationContextType {
+  error: string | null;
   loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  error: boolean;
-  setError: React.Dispatch<React.SetStateAction<boolean>>;
-  errorMessage: string;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  toaster: boolean;
+  success: string | null;
+  showError: (errorMessage: string) => void;
+  showLoading: (loadingState: boolean) => void;
+  showSuccess: (successMessage: string) => void;
+  showToaster: (toasterState: boolean) => void;
 }
 
-const ApiContext = createContext<ApiContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined,
+);
 
-interface ApiProviderProps {
-  children: React.ReactNode;
-}
-export const useApiContext = (): ApiContextType => {
-  const context = useContext(ApiContext);
+export const useNotification = (): NotificationContextType => {
+  const context = useContext(NotificationContext);
   if (!context) {
-    throw new Error('useApiContext must be used within an ApiProvider');
+    throw new Error(
+      'useNotification must be used within a NotificationProvider',
+    );
   }
   return context;
 };
 
-export const ApiProvider: React.FC<ApiProviderProps> = ({children}) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+interface NotificationProviderProps {
+  children: ReactNode;
+}
 
-  const value = {
-    loading,
-    setLoading,
-    error,
-    setError,
-    errorMessage,
-    setErrorMessage,
+export const NotificationProvider: React.FC<NotificationProviderProps> = ({
+  children,
+}) => {
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [toaster, setShowToaster] = useState<boolean>(false);
+
+  const showError = (errorMessage: string) => {
+    setShowToaster(true);
+    setError(errorMessage);
+    setTimeout(() => {
+      setShowToaster(false);
+      setError(null);
+    }, 3000);
   };
 
-  return <ApiContext.Provider value={value}>{children}</ApiContext.Provider>;
+  const showLoading = (loadingState: boolean) => {
+    setLoading(loadingState);
+  };
+  const showToaster = (loadingState: boolean) => {
+    setShowToaster(loadingState);
+  };
+
+  const showSuccess = (successMessage: string) => {
+    setSuccess(successMessage);
+    setShowToaster(true);
+    setTimeout(() => {
+      setShowToaster(false);
+      setSuccess(null);
+    }, 3000);
+  };
+
+  const contextValue: NotificationContextType = {
+    error,
+    loading,
+    success,
+    showError,
+    showLoading,
+    showSuccess,
+    toaster,
+    showToaster,
+  };
+
+  return (
+    <NotificationContext.Provider value={contextValue}>
+      {children}
+    </NotificationContext.Provider>
+  );
 };

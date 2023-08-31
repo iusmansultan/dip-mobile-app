@@ -17,7 +17,7 @@ import {NavigationProp} from '@react-navigation/native';
 import {useAppDispatch} from '../../../redux/Hooks';
 import {saveUser} from '../../../redux/User/UserSlice';
 import {SignInUser} from '../../../services/UserService';
-import {useApiContext} from '../../../contextApi/ApiContext';
+import {useNotification} from '../../../contextApi/ApiContext';
 
 type RootStackParamList = {
   splash: undefined;
@@ -33,7 +33,7 @@ type MyComponentProps = {
 
 const Login: React.FC<MyComponentProps> = ({navigation}) => {
   const dispatch = useAppDispatch();
-  const {loading, setLoading, error, setError} = useApiContext();
+  const {loading, showLoading} = useNotification();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -42,10 +42,10 @@ const Login: React.FC<MyComponentProps> = ({navigation}) => {
   };
 
   const handleSignIn = async () => {
-    setLoading(true);
+    showLoading(true);
     const response = await SignInUser({email, password});
     console.log(response);
-    setLoading(false);
+    showLoading(false);
 
     if (response.success) {
       dispatch(

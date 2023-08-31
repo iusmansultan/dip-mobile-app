@@ -9,14 +9,14 @@ import {
 } from 'react-native';
 import React from 'react';
 import styles from './Styles';
-import {useApiContext} from '../../contextApi/ApiContext';
+import {useNotification} from '../../contextApi/ApiContext';
 import PrimaryButton from '../../components/PrimaryButton/PrimaryButton';
 // const errorIcon = require('../../assets/icons/errorIcon.png');
 
 const Loader = () => {
-  const {loading} = useApiContext();
+  const {loading} = useNotification();
 
- if (loading) {
+  if (loading) {
     return (
       <View style={styles.centeredView}>
         <Modal transparent={true} visible={true}>

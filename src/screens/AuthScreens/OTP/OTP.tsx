@@ -15,7 +15,7 @@ import {LOGIN} from '../../../helpers/RoutesName';
 import {VerifyUser} from '../../../services/UserService';
 
 import {NavigationProp} from '@react-navigation/native';
-import {useApiContext} from '../../../contextApi/ApiContext';
+import {useNotification} from '../../../contextApi/ApiContext';
 import {
   CodeField,
   Cursor,
@@ -24,7 +24,7 @@ import {
 } from 'react-native-confirmation-code-field';
 
 const OTP = ({route, navigation}) => {
-  const {loading, setLoading, error, setError} = useApiContext();
+  const {showLoading} = useNotification();
   const {email} = route.params;
 
   const [otp, setOtp] = useState('');
@@ -36,18 +36,18 @@ const OTP = ({route, navigation}) => {
   });
 
   const onVerify = async () => {
-    setLoading(true);
+    showLoading(true);
     const body = {
       email: email,
       code: value,
     };
     console.log(body);
     const response = await VerifyUser(body);
-    console.log (response)
-    setLoading(false);
+    console.log(response);
+    showLoading(false);
     if (response.success) {
       Alert.alert('Succcesss');
-      navigation.replace(LOGIN)
+      navigation.replace(LOGIN);
     } else {
       Alert.alert(
         'Error',

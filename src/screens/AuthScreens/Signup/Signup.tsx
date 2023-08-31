@@ -15,10 +15,10 @@ import {LOGIN, VERIFY_OTP} from '../../../helpers/RoutesName';
 import {CreateUser} from '../../../services/UserService';
 
 import {NavigationProp} from '@react-navigation/native';
-import {useApiContext} from '../../../contextApi/ApiContext';
+import {useNotification} from '../../../contextApi/ApiContext';
 
 const Signup = ({navigation}) => {
-  const {setLoading, setError, setErrorMessage} = useApiContext();
+  const {showLoading} = useNotification();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,7 +28,7 @@ const Signup = ({navigation}) => {
     navigation.navigate(LOGIN);
   };
   const handleOnSignUp = async () => {
-    setLoading(true);
+    showLoading(true);
     const data = {
       name,
       email,
@@ -36,7 +36,7 @@ const Signup = ({navigation}) => {
     };
     const {success, message} = await CreateUser(data);
     console.log(message);
-    setLoading(false);
+    showLoading(false);
     if (success) {
       navigation.navigate(VERIFY_OTP,{email:email});
     } else {

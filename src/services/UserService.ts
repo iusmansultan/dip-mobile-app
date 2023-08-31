@@ -45,7 +45,7 @@ const VerifyUser = async (data: any) => {
     return {
       success: false,
       message: response.message,
-      data: response,
+      data: response.res,
     };
   } catch (error: any) {
     return {
@@ -65,7 +65,7 @@ const SignInUser = async (data: any) => {
     return {
       success: true,
       message: 'SignIn Successfully',
-      data: response,
+      data: response.res,
     };
   } catch (error: any) {
     return {

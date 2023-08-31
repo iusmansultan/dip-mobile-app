@@ -10,19 +10,21 @@ import {persistStore} from 'redux-persist';
 
 let persistor = persistStore(store);
 
-import {ApiProvider} from './src/contextApi/ApiContext';
+import {NotificationProvider} from './src/contextApi/ApiContext';
 
 import Loader from './src/screens/NetworkActivity/NetworkActivity';
 import OnError from './src/screens/NetworkActivity/OnError';
+import Toaster from './src/screens/NetworkActivity/Toaster';
 
 function App(): JSX.Element {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ApiProvider>
+        <NotificationProvider>
+          <Toaster />
           <Loader />
           <Router />
-        </ApiProvider>
+        </NotificationProvider>
       </PersistGate>
     </Provider>
   );
