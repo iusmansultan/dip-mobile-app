@@ -7,38 +7,103 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect, useLayoutEffect, useCallback} from 'react';
 import styles from './Styles';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 import InputField from '../../../components/InputField/InputField';
 import DescriptionField from '../../../components/DescriptionField/DescriptionField';
 import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
-import { ADD_NEW_GUIDE } from '../../../helpers/RoutesName';
+import {ADD_NEW_GUIDE} from '../../../helpers/RoutesName';
+import {GetUserGuides} from '../../../services/GuideService';
+import {useAppSelector} from '../../../redux/Hooks';
+import {useNotification} from '../../../contextApi/ApiContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Add: React.FC = ({navigation}) => {
-  const guides: any = [
-    // {
-    //   id: 1,
-    //   title: 'Guide 1',
-    //   isSelected: false,
-    // },
-    // {
-    //   id: 2,
-    //   title: 'Guide 2',
-    //   isSelected: false,
-    // },
-    // {
-    //   id: 3,
-    //   title: 'Guide 3',
-    //   isSelected: false,
-    // },
-    // {
-    //   id: 4,
-    //   title: 'Guide 4',
-    //   isSelected: false,
-    // },
-  ];
+  const user = useAppSelector((state: any) => state.user.value.user);
+  const {showLoading, showError} = useNotification();
+  const [guides, setGuides] = useState<any>([]);
+
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [place, setPlace] = useState<string>('');
+
+  // Set the header title dynamically based on the selected item
+  useLayoutEffect(() => {
+    const addButtonVisible = guides.length > 0;
+
+    navigation.setOptions({
+      headerRight: () =>
+        addButtonVisible && (
+          <TouchableOpacity
+            onPress={onHandleAddNewGuide}
+            style={styles.addButton}>
+            <Image
+              source={require('../../../assets/icons/plus.png')}
+              style={styles.plus}
+            />
+            <Text style={styles.addButtonText}>Guide</Text>
+          </TouchableOpacity>
+        ),
+    });
+  }, [guides]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchUserGuides();
+      return () => {};
+    }, []),
+  );
+
+  useEffect(() => {
+    fetchUserGuides();
+  }, []);
+
+  const fetchUserGuides = async () => {
+    showLoading(true);
+    const response = await GetUserGuides(user._id);
+    showLoading(false);
+    if (response.success) {
+      const data: any = [];
+      response.data.map((item: any) => {
+        data.push({
+          ...item,
+          isSelected: false,
+        });
+      });
+
+      setGuides(data);
+    } else {
+      showError(response.message);
+    }
+  };
+
+  const onChangeName = (text: string) => {
+    setName(text);
+  };
+
+  const onChangeDescription = (text: string) => {
+    setDescription(text);
+  };
+
+  const onHandleCheckUnCheck = (item: any) => {
+    // Create a copy of the guides array to avoid mutating the state directly
+    const updatedGuides = guides.map((guide: any) => {
+      if (guide === item) {
+        return {
+          ...guide,
+          isSelected: true,
+        };
+      }
+      return {
+        ...guide,
+        isSelected: false,
+      };
+    });
+
+    setGuides(updatedGuides);
+  };
 
   const onHandleAddNewGuide = () => {
     navigation.navigate(ADD_NEW_GUIDE);
@@ -56,11 +121,15 @@ const Add: React.FC = ({navigation}) => {
           </View>
         </View>
 
-        <InputField title="Name" placeholderText="Name" onChange={() => {}} />
+        <InputField
+          title="Name"
+          placeholderText="Name"
+          onChange={text => onChangeName(text)}
+        />
         <DescriptionField
           title="Name"
           placeholderText="Describe your report..."
-          onChange={() => {}}
+          onChange={text => onChangeDescription(text)}
         />
 
         <View style={styles.addPlaceContainer}>
@@ -68,11 +137,25 @@ const Add: React.FC = ({navigation}) => {
         </View>
 
         {guides.length > 0 ? (
-          guides.map(item => {
+          guides.map((item: any) => {
             return (
-              <View key={item.id} style={styles.guideContainer}>
-                <Text> {item.title}</Text>
-              </View>
+              <TouchableOpacity
+                onPress={() => onHandleCheckUnCheck(item)}
+                key={item._id}
+                style={styles.guideContainer}>
+                <Text style={styles.guideTitle}> {item.title}</Text>
+                {item.isSelected ? (
+                  <Image
+                    source={require('../../../assets/icons/radioActive.png')}
+                    style={styles.icon}
+                  />
+                ) : (
+                  <Image
+                    source={require('../../../assets/icons/radioInActive.png')}
+                    style={styles.icon}
+                  />
+                )}
+              </TouchableOpacity>
             );
           })
         ) : (
@@ -103,7 +186,7 @@ const Add: React.FC = ({navigation}) => {
             textInputContainer: styles.textInputContainer,
           }}
           query={{
-            key: 'AIzaSyDQYAPCstGpooeRjILWMIosEQFoQ8YnKtk',
+            key: 'AIzaSyBF5yA4Db8h0Vpu6243pOCP77I7sFBiuaE',
             language: 'en',
           }}
           listViewDisplayed={false} // Hide the list view initially

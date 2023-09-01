@@ -12,5 +12,6 @@ export const API_ENDPOINTS = {
   },
   GUIDE: {
     CREATE_NEW_GUIDE: 'guide/createGuide',
+    GET_USER_GUIDE: 'guide/userGuide',
   },
 };

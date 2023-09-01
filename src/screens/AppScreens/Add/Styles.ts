@@ -86,8 +86,20 @@ const styles = StyleSheet.create({
   },
   guideContainer: {
     width: '100%',
-    height: 30,
+    height: 40,
     paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  guideTitle: {
+    fontFamily: MEDIUM,
+    fontSize: getFontSize(14),
+    color: BLACK,
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
   addNewGuideContainer: {
     width: '100%',
@@ -102,7 +114,29 @@ const styles = StyleSheet.create({
   addNewGuideText: {
     color: COLOR_PRIMARY,
     fontFamily: SEMIBOLD,
-    fontSize:getFontSize(15)
+    fontSize: getFontSize(15),
+  },
+  addButton: {
+    marginRight: 15,
+    backgroundColor: COLOR_PRIMARY,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderRadius: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+  },
+  plus: {
+    width: 12,
+    height: 12,
+    tintColor: WHITE,
+  },
+  addButtonText: {
+    fontFamily: MEDIUM,
+    fontSize: getFontSize(12),
+    color: WHITE,
+    // marginBottom: -2,
   },
 });
 

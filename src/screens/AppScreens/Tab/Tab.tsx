@@ -75,6 +75,7 @@ const MyTabs = () => {
         name={ADD}
         component={Add}
         options={{
+          title: 'Add Report',
           tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
@@ -84,7 +85,7 @@ const MyTabs = () => {
               }
             />
           ),
-          headerTitleAlign: 'center', // Align header title in the center
+          headerTitleAlign: 'left', // Align header title in the center
           headerTitleStyle: {
             fontSize: getFontSize(16), // Customize font size or other styles
             fontFamily: MEDIUM,
