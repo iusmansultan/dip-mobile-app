@@ -10,6 +10,11 @@ import {
 import React, {useState, useEffect, useLayoutEffect, useCallback} from 'react';
 import styles from './Styles';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import ImagePicker, {
+  launchImageLibrary,
+  ImagePickerResponse,
+  Options,
+} from 'react-native-image-picker';
 
 import InputField from '../../../components/InputField/InputField';
 import DescriptionField from '../../../components/DescriptionField/DescriptionField';
@@ -20,6 +25,8 @@ import {useAppSelector} from '../../../redux/Hooks';
 import {useNotification} from '../../../contextApi/ApiContext';
 import {useFocusEffect} from '@react-navigation/native';
 
+import {UploadImage} from '../../../services/ReportService';
+
 const Add: React.FC = ({navigation}) => {
   const user = useAppSelector((state: any) => state.user.value.user);
   const {showLoading, showError} = useNotification();
@@ -28,6 +35,7 @@ const Add: React.FC = ({navigation}) => {
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [place, setPlace] = useState<string>('');
+  const [images, setImages] = useState<string[]>([]);
 
   // Set the header title dynamically based on the selected item
   useLayoutEffect(() => {
@@ -109,6 +117,36 @@ const Add: React.FC = ({navigation}) => {
     navigation.navigate(ADD_NEW_GUIDE);
   };
 
+  const onUploadImage = async () => {
+    const options: Options = {
+      mediaType: 'photo',
+      maxHeight: 500,
+      maxWidth: 500,
+    };
+
+    launchImageLibrary(options, async (response: ImagePickerResponse) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else {
+        console.log('Image URI: ', response?.assets[0].uri);
+        showLoading(true);
+        const url: any = await UploadImage(response?.assets[0]);
+        console.log(url);
+        setImages([...images, url]);
+        showLoading(false);
+      }
+    });
+  };
+
+  const onRemoveImage = (itemIndex: number) => {
+    // Create a new array without the item to be removed
+    const newImages = [...images];
+    newImages.splice(itemIndex, 1);
+
+    // Update the state with the new array
+    setImages(newImages);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -116,9 +154,27 @@ const Add: React.FC = ({navigation}) => {
         contentContainerStyle={styles.contentContainerStyle}
         showsVerticalScrollIndicator={false}>
         <View style={styles.imagesContainer}>
-          <View style={styles.addImageButton}>
-            <Text style={styles.addPhotoText}>Add Photo</Text>
-          </View>
+          {images.length > 0 &&
+            images.map((item, index) => (
+              <View key={index}>
+                <Image source={{uri: item}} style={styles.image} />
+                <TouchableOpacity
+                  onPress={() => onRemoveImage(index)}
+                  style={styles.crossButton}>
+                  <Image
+                    source={require('../../../assets/icons/cross.png')}
+                    style={styles.crossIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+            ))}
+          {images.length < 3 && (
+            <TouchableOpacity
+              onPress={onUploadImage}
+              style={styles.addImageButton}>
+              <Text style={styles.addPhotoText}>Add Photo</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         <InputField

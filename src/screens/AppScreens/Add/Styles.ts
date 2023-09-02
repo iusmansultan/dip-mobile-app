@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     gap: 10,
   },
   addImageButton: {
@@ -137,6 +139,26 @@ const styles = StyleSheet.create({
     fontSize: getFontSize(12),
     color: WHITE,
     // marginBottom: -2,
+  },
+  image: {
+    width: 65,
+    height: 87,
+    borderRadius: 8,
+    position: 'relative',
+  },
+
+  crossIcon: {
+    width: 20,
+    height: 20,
+    tintColor: 'red',
+  },
+  crossButton: {
+    position: 'absolute',
+    top: -5,
+    right: -4,
+    zIndex: 2,
+    backgroundColor: WHITE,
+    borderRadius: 10,
   },
 });
 

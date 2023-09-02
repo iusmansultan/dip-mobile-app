@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "708887190507",
+    "project_id": "dip-mobile-app",
+    "storage_bucket": "dip-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708887190507:android:046c677b2d5f3837f897ae",
+        "android_client_info": {
+          "package_name": "com.dip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708887190507-1vig886ilfq8l8g3lnmgpkacvn2he8dg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0u9_Nnk1GU2fCazorGrmvPhAE4ufpLas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708887190507-1vig886ilfq8l8g3lnmgpkacvn2he8dg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "708887190507-t2qtunod1j2jkal9np4rr5ul7nfdpdhb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dip"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
