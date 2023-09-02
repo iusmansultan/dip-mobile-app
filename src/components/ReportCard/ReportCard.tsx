@@ -30,8 +30,12 @@ const ReportCard: React.FC<any> = ({data}) => {
           // onViewableItemsChanged={onViewableItemsChanged}
         />
       </View>
-      <Text style={styles.userName}>{data.name}</Text>
-      <Text style={styles.description}>{data.description}</Text>
+      <Text style={styles.userName} numberOfLines={1}>
+        {data.title}
+      </Text>
+      <Text style={styles.description} numberOfLines={2}>
+        {data.description}
+      </Text>
     </View>
   );
 };

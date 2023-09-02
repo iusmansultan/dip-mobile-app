@@ -20,6 +20,58 @@ const UploadImage = async (image:any) => {
   }
 };
 
+const CreateReport = async (data: any) => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.REPORTS.CREATE_NEW_REPORT;
+    const response = await AxiosCall({url: url, method: 'post', data: data});
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'Report created successfully!',
+        data: response,
+      };
+    }
+
+    return {
+      success: false,
+      message: response.message,
+      data: response,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
+const GetAllReports = async () => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.REPORTS.GET_ALL_REPORT;
+    const response = await AxiosCall({url: url, method: 'get'});
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'All Reports',
+        data: response.data,
+      };
+    }
+
+    return {
+      success: false,
+      message: response.message,
+      data: response,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
 
 function generateRandomImageName() {
   const timestamp = Date.now();
@@ -27,4 +79,4 @@ function generateRandomImageName() {
   return `${timestamp}-${random}.jpg`;
 }
 
-export {UploadImage};
+export {UploadImage, CreateReport, GetAllReports};

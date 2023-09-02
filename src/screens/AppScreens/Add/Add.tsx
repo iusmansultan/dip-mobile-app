@@ -19,17 +19,17 @@ import ImagePicker, {
 import InputField from '../../../components/InputField/InputField';
 import DescriptionField from '../../../components/DescriptionField/DescriptionField';
 import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
-import {ADD_NEW_GUIDE} from '../../../helpers/RoutesName';
+import {ADD_NEW_GUIDE, HOME} from '../../../helpers/RoutesName';
 import {GetUserGuides} from '../../../services/GuideService';
 import {useAppSelector} from '../../../redux/Hooks';
 import {useNotification} from '../../../contextApi/ApiContext';
 import {useFocusEffect} from '@react-navigation/native';
 
-import {UploadImage} from '../../../services/ReportService';
+import {UploadImage, CreateReport} from '../../../services/ReportService';
 
 const Add: React.FC = ({navigation}) => {
   const user = useAppSelector((state: any) => state.user.value.user);
-  const {showLoading, showError} = useNotification();
+  const {showLoading, showError, showSuccess} = useNotification();
   const [guides, setGuides] = useState<any>([]);
 
   const [name, setName] = useState<string>('');
@@ -147,6 +147,35 @@ const Add: React.FC = ({navigation}) => {
     setImages(newImages);
   };
 
+  const onCreateReport = async () => {
+    const body = {
+      images,
+      title: name,
+      description,
+      guides,
+      places: 'no place',
+      createdBy: user._id,
+      createdAt: new Date(),
+    };
+
+    console.log(body);
+    showLoading(true);
+    const response = await CreateReport(body);
+    showLoading(false);
+    console.log(response);
+
+    if (response.success) {
+      showSuccess('Report Created Successfully');
+      setImages([]);
+      setName('');
+      setDescription('');
+      fetchUserGuides();
+      navigation.navigate(HOME);
+    } else {
+      showError(response.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -252,7 +281,7 @@ const Add: React.FC = ({navigation}) => {
         />
       </ScrollView>
 
-      <PrimaryButton title="Share" onPress={() => {}} />
+      <PrimaryButton title="Create" onPress={onCreateReport} />
     </View>
   );
 };

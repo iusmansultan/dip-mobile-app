@@ -2,14 +2,13 @@ import {View, Text, Image} from 'react-native';
 import React from 'react';
 import styles from './Styles';
 
-const GuideCard = () => {
-  const imageUrl =
-    'https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?cs=srgb&dl=pexels-rajesh-tp-1633578.jpg&fm=jpg';
+const GuideCard: React.FC<any> = ({data}) => {
+
   return (
     <View style={styles.postCard}>
       <View style={styles.flexStart}>
-        <Image source={{uri: imageUrl}} style={styles.profileImage} />
-        <Text style={styles.userName}>Guide</Text>
+        {/* <Image source={{uri: imageUrl}} style={styles.profileImage} /> */}
+        <Text style={styles.userName}>{data.title}</Text>
       </View>
       <Image
         source={require('../../assets/icons/bell.png')}

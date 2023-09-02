@@ -55,4 +55,31 @@ const GetUserGuides = async (id: string) => {
   }
 };
 
-export {CreateNewGuide, GetUserGuides};
+const GetAllGuides = async () => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.GUIDE.GET_ALL_GUIDE;
+    const response = await AxiosCall({url: url, method: 'get', data: ''});
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'your guides!',
+        data: response.data,
+      };
+    }
+
+    return {
+      success: false,
+      message: response.message,
+      data: response,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
+
+export {CreateNewGuide, GetUserGuides, GetAllGuides};

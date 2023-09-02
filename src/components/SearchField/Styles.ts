@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: '100%',
-    height: 56,
+    height: 50,
     borderRadius: 8,
     marginTop: 4,
     paddingHorizontal: 13,

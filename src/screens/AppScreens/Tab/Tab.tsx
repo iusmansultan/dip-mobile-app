@@ -33,7 +33,7 @@ const Tab = createBottomTabNavigator();
 
 const MyTabs = () => {
   return (
-    <Tab.Navigator initialRouteName={SEARCH}>
+    <Tab.Navigator initialRouteName={HOME}>
       <Tab.Screen
         name={HOME}
         component={Home}

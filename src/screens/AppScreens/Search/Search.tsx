@@ -5,7 +5,7 @@ import {
   FlatList,
   PanResponder,
 } from 'react-native';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import SearchField from '../../../components/SearchField/SearchField';
 import styles from './Styles';
 import ReportCard from '../../../components/ReportCard/ReportCard';
@@ -16,7 +16,13 @@ import GuideCard from '../../../components/GuideCard/GuideCard';
 // modals
 import {ReportModal, UserModal} from '../../../utils/DataModels';
 
+import {useNotification} from '../../../contextApi/ApiContext';
+import {GetAllReports} from '../../../services/ReportService';
+import {GetAllGuides} from '../../../services/GuideService';
+
 const Search = () => {
+  const {showLoading, showError} = useNotification();
+
   const [tabs, setTabs] = useState<any>([
     {
       id: 1,
@@ -41,33 +47,7 @@ const Search = () => {
   ]);
   const [index, setIndex] = useState(0);
 
-  const [reportsData, setReportData] = useState<ReportModal[]>([
-    {
-      id: '343434',
-      name: 'John Doe',
-      description: 'this is test',
-      images: [
-        'https://blizin.com/public/images/uploads/articles/budgetfriendlynorthernareasinpakistanforhoneymoon-A-1564311831.webp',
-      ],
-      guideId: '2312312',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      postedBy: {},
-    },
-    {
-      id: '3344566',
-      name: 'Johns ',
-      description: 'this is test',
-      images: [
-        'https://www.visitswatvalley.com/images/Northern-Areas-of-Pakistan.jpg',
-        'https://hunzaadventuretours.com/wp-content/uploads/2022/03/k2-base-camp-trek-Karakoram-Pakistan.jpg',
-      ],
-      guideId: '2312312',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      postedBy: {},
-    },
-  ]);
+  const [reportsData, setReportData] = useState<ReportModal[]>([]);
 
   const [accountData, setAccountsData] = useState<UserModal[]>([
     {
@@ -134,7 +114,7 @@ const Search = () => {
     },
   ]);
 
-  const guidesData = [{id: 1}, {id: 2}, {id: 3}];
+  const [guidesData, setGuidesData] = useState<any[]>([]);
 
   const onTabPress = (id: number) => {
     const updatedTabs = tabs.map((item: any) =>
@@ -158,6 +138,34 @@ const Search = () => {
       onPanResponderEnd: () => {},
     }),
   ).current;
+
+  useEffect(() => {
+    onFetchReports();
+    onFetchGuides();
+  }, []);
+
+  const onFetchReports = async () => {
+    showLoading(true);
+    const response = await GetAllReports();
+    showLoading(false);
+    if (response.success) {
+      setReportData(response.data);
+    } else {
+      showError(response.message);
+    }
+  };
+
+  const onFetchGuides = async () => {
+    const response = await GetAllReports();
+    console.log(response.data[0]);
+    if (response.success) {
+      setGuidesData(response.data);
+    } else {
+      showError(response.message);
+    }
+  };
+
+  const onFetchAccounts = async () => {};
 
   return (
     <View style={styles.container}>
@@ -201,7 +209,7 @@ const Search = () => {
           ) : tabs[2].isActive ? (
             <PlacesCard data={item} />
           ) : (
-            tabs[3].isActive && <GuideCard />
+            tabs[3].isActive && <GuideCard data={item} />
           )
         }
       />

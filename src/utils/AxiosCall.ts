@@ -9,7 +9,6 @@ interface ParamsType {
 const AxiosCall = async ({url, method, data}: ParamsType): Promise<any> => {
   try {
     let response: AxiosResponse;
-    console.log(url);
 
     switch (method) {
       case 'get':

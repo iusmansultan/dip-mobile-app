@@ -33,15 +33,15 @@ const styles = StyleSheet.create({
   userName: {
     marginLeft: 10,
     marginTop: 10,
-    fontSize: getFontSize(16),
+    fontSize: getFontSize(14),
     color: BLACK,
-    fontFamily: SEMIBOLD,
+    fontFamily: MEDIUM,
   },
   description: {
     marginLeft: 10,
     marginTop: 5,
     marginRight: 10,
-    fontSize: getFontSize(14),
+    fontSize: getFontSize(12),
     color: BLACK,
     fontFamily: REGULAR,
   },
