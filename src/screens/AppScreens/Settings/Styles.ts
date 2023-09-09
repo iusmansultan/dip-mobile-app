@@ -25,6 +25,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     borderRadius: 100,
   },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+  },
   profileName: {
     marginTop: 10,
     fontFamily: MEDIUM,
@@ -102,6 +107,11 @@ const styles = StyleSheet.create({
   },
   flatList: {
     width: '100%',
+  },
+  editIcon: {
+    width: 25,
+    height: 25,
+    marginRight: 20,
   },
 });
 

@@ -15,6 +15,7 @@ export const SEARCH = 'Search';
 export const NOTIFICATION = 'Notification';
 export const SETTINGS = 'Settings';
 export const ADD = 'Add';
+export const EDIT_PROFILE = 'edit_profile';
 
 
 

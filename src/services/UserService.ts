@@ -1,5 +1,6 @@
 import AxiosCall from '../utils/AxiosCall';
 import {BASE_URL, API_ENDPOINTS} from '../helpers/Config';
+import storage from '@react-native-firebase/storage';
 
 const CreateUser = async (data: any) => {
   try {
@@ -11,6 +12,33 @@ const CreateUser = async (data: any) => {
       return {
         success: true,
         message: 'Please verify your email',
+        data: response,
+      };
+    }
+
+    return {
+      success: false,
+      message: response.message,
+      data: response,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
+const UpdateUserProfile = async (data: any, id: string) => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.USER.UPDATE_PROFILE + '/' + id;
+    const response = await AxiosCall({url: url, method: 'post', data: data});
+    console.log(response);
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'Profile updated successfully!',
         data: response,
       };
     }
@@ -75,5 +103,28 @@ const SignInUser = async (data: any) => {
     };
   }
 };
+const UploadUserProfileImage = async (image: any, id: string) => {
+  try {
+    let imageRef = storage().ref(`serviceImages/${id}`);
+    await imageRef.putFile(image?.uri);
+    return {
+      success: true,
+      message: 'Image uploaded successfully!',
+      url: await imageRef.getDownloadURL(),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
 
-export {CreateUser, SignInUser, VerifyUser};
+export {
+  CreateUser,
+  SignInUser,
+  VerifyUser,
+  UploadUserProfileImage,
+  UpdateUserProfile,
+};

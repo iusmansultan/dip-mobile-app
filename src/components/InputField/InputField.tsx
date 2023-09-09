@@ -10,6 +10,7 @@ type InputFieldProps = {
   placeholderText: string;
   onChange: (text: string) => void;
   isSecureText?: boolean;
+  value?: string;
 };
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -17,6 +18,7 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholderText,
   onChange,
   isSecureText = false,
+  value,
 }) => {
   const [isShow, setIshow] = useState<boolean>(true);
 
@@ -34,6 +36,7 @@ const InputField: React.FC<InputFieldProps> = ({
           style={styles.input}
           secureTextEntry={isSecureText ? isShow : false}
           autoCapitalize="none"
+          value={value}
         />
 
         {isSecureText && (

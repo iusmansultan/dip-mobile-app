@@ -9,21 +9,22 @@ type DescriptionFieldProps = {
   title: string;
   placeholderText: string;
   onChange: (text: string) => void;
+  value?: string;
 };
 
 const DescriptionField: React.FC<DescriptionFieldProps> = ({
   title,
   placeholderText,
   onChange,
+  value,
 }) => {
-
-
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder={placeholderText}
           placeholderTextColor={BLACK}
+          value={value}
           onChangeText={(text: string) => onChange(text)}
           style={styles.input}
           multiline={true}

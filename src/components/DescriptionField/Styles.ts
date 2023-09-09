@@ -12,7 +12,7 @@ import {
 
 const styles = StyleSheet.create({
   container: {
-    width: wp('93%'),
+    width: '100%',
     marginBottom: 10,
     marginTop: 10,
   },

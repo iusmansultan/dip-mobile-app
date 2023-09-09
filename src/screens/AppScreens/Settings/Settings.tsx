@@ -8,20 +8,23 @@ import {
   Switch,
   SafeAreaView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import styles from './Styles';
 import InputField from '../../../components/InputField/InputField';
 import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
 import {ACCOUNT} from '../../../helpers/RoutesName';
 import {COLOR_PRIMARY} from '../../../helpers/Colors';
-import {useAppDispatch} from '../../../redux/Hooks';
 import {logoutUser} from '../../../redux/User/UserSlice';
 import ReportCard from '../../../components/ReportCard/ReportCard';
 import GuideCard from '../../../components/GuideCard/GuideCard';
-import { ReportModal } from '../../../utils/DataModels';
+import {ReportModal} from '../../../utils/DataModels';
+
+import {useAppSelector, useAppDispatch} from '../../../redux/Hooks';
+import {EDIT_PROFILE} from '../../../helpers/RoutesName';
 
 const Settings: React.FC = ({navigation}) => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state: any) => state.user.value.user);
   const [tabs, setTabs] = useState<any>([
     {
       id: 1,
@@ -65,6 +68,24 @@ const Settings: React.FC = ({navigation}) => {
     },
   ]);
 
+  // Set the header title dynamically based on the selected item
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={onHandleEditProfile}>
+          <Image
+            source={require('../../../assets/icons/editIcon.png')}
+            style={styles.editIcon}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
+  const onHandleEditProfile = () => {
+    navigation.navigate(EDIT_PROFILE);
+  };
+
   const handleLogout = () => {
     dispatch(logoutUser());
   };
@@ -79,10 +100,19 @@ const Settings: React.FC = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.profileImageContainer}></View>
+      <View style={styles.profileImageContainer}>
+        <Image
+          source={
+            user.imageUrl !== ''
+              ? {uri: user.imageUrl}
+              : require('../../../assets/images/profile-avatar.jpeg')
+          }
+          style={styles.profileImage}
+        />
+      </View>
 
-      <Text style={styles.profileName}>John Doe</Text>
-      <Text style={styles.userNameText}>@johndoe</Text>
+      <Text style={styles.profileName}>{user.name}</Text>
+      <Text style={styles.userNameText}>@{user.userName}</Text>
 
       <View style={styles.statsContainer}>
         <View style={styles.boxContainer}>
@@ -94,17 +124,12 @@ const Settings: React.FC = ({navigation}) => {
           <Text style={styles.labelText}>Guides</Text>
         </View>
         <View style={styles.boxContainer}>
-          <Text style={styles.valueText}>1</Text>
+          <Text style={styles.valueText}>{user.follower}</Text>
           <Text style={styles.labelText}>Followers</Text>
         </View>
       </View>
 
-      <Text style={styles.bioText}>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer
-        vulputate sem a nibh rutrum consequat. Nam quis nulla. Cum sociis
-        natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-        mus.
-      </Text>
+      <Text style={styles.bioText}>{user.bio}</Text>
 
       <View style={styles.tabsContainer}>
         {tabs.map((item: any, index: number) => {

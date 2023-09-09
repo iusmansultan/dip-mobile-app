@@ -7,6 +7,7 @@ import Play from '../screens/AppScreens/Play/Play';
 import Account from '../screens/AppScreens/Account/Account';
 import ResetPassword from '../screens/AppScreens/ResetPassword/ResetPassword';
 import AddNewGuide from '../screens/AppScreens/AddNewGuide/AddNewGuide';
+import EditProfile from '../screens/AppScreens/EditProfile/EditProfile';
 
 import {
   SPLASH,
@@ -16,8 +17,9 @@ import {
   ACCOUNT,
   RESET_PASSWORD,
   ADD_NEW_GUIDE,
+  EDIT_PROFILE,
 } from '../helpers/RoutesName';
-import {COLOR_PRIMARY, WHITE} from '../helpers/Colors';
+import {BLACK, COLOR_PRIMARY, WHITE} from '../helpers/Colors';
 
 const Stack = createStackNavigator();
 
@@ -57,6 +59,21 @@ const AppStack = () => {
           },
           headerBackTitleVisible: false,
           headerTintColor: WHITE,
+        }}
+      />
+      <Stack.Screen
+        name={EDIT_PROFILE}
+        component={EditProfile}
+        options={{
+          title: 'Edit Profile',
+          headerStyle: {
+            backgroundColor: WHITE,
+          },
+          headerTitleStyle: {
+            color: BLACK,
+          },
+          headerBackTitleVisible: false,
+          headerTintColor: BLACK,
         }}
       />
       <Stack.Screen
