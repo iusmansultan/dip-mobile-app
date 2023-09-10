@@ -18,5 +18,6 @@ export const API_ENDPOINTS = {
   REPORTS: {
     CREATE_NEW_REPORT: 'reports/createReport',
     GET_ALL_REPORT: 'reports/getAllReport',
+    GET_USER_REPORT: 'reports/getUserReport/',
   },
 };

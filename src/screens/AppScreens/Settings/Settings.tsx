@@ -8,7 +8,7 @@ import {
   Switch,
   SafeAreaView,
 } from 'react-native';
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState, useLayoutEffect, useEffect} from 'react';
 import styles from './Styles';
 import InputField from '../../../components/InputField/InputField';
 import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
@@ -21,10 +21,14 @@ import {ReportModal} from '../../../utils/DataModels';
 
 import {useAppSelector, useAppDispatch} from '../../../redux/Hooks';
 import {EDIT_PROFILE} from '../../../helpers/RoutesName';
-
+import {GetUserGuides} from '../../../services/GuideService';
+import {GetUserReports} from '../../../services/ReportService';
+import {useNotification} from '../../../contextApi/ApiContext';
 const Settings: React.FC = ({navigation}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: any) => state.user.value.user);
+  const {showLoading, showError} = useNotification();
+
   const [tabs, setTabs] = useState<any>([
     {
       id: 1,
@@ -39,34 +43,8 @@ const Settings: React.FC = ({navigation}) => {
     },
   ]);
 
-  const guidesData = [{id: 1}, {id: 2}, {id: 3}];
-  const [reportsData, setReportData] = useState<ReportModal[]>([
-    {
-      id: '343434',
-      name: 'John Doe',
-      description: 'this is test',
-      images: [
-        'https://blizin.com/public/images/uploads/articles/budgetfriendlynorthernareasinpakistanforhoneymoon-A-1564311831.webp',
-      ],
-      guideId: '2312312',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      postedBy: {},
-    },
-    {
-      id: '3344566',
-      name: 'Johns ',
-      description: 'this is test',
-      images: [
-        'https://www.visitswatvalley.com/images/Northern-Areas-of-Pakistan.jpg',
-        'https://hunzaadventuretours.com/wp-content/uploads/2022/03/k2-base-camp-trek-Karakoram-Pakistan.jpg',
-      ],
-      guideId: '2312312',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      postedBy: {},
-    },
-  ]);
+  const [guidesData, setGuidesData] = useState<any[]>([]);
+  const [reportsData, setReportData] = useState<any[]>([]);
 
   // Set the header title dynamically based on the selected item
   useLayoutEffect(() => {
@@ -81,6 +59,31 @@ const Settings: React.FC = ({navigation}) => {
       ),
     });
   }, []);
+
+  useEffect(() => {
+    getUserReports();
+    getUserGuides();
+  }, []);
+  const getUserReports = async () => {
+    showLoading(true);
+    const response = await GetUserReports(user._id);
+    if (response.success) {
+      setReportData(response.data);
+    } else {
+      showError(response.message);
+    }
+  };
+
+  const getUserGuides = async () => {
+    const response = await GetUserGuides(user._id);
+    console.log(response);
+    if (response.success) {
+      setGuidesData(response.data);
+    } else {
+      showError(response.message);
+    }
+    showLoading(false);
+  };
 
   const onHandleEditProfile = () => {
     navigation.navigate(EDIT_PROFILE);
@@ -116,11 +119,11 @@ const Settings: React.FC = ({navigation}) => {
 
       <View style={styles.statsContainer}>
         <View style={styles.boxContainer}>
-          <Text style={styles.valueText}>300</Text>
+          <Text style={styles.valueText}>{reportsData.length}</Text>
           <Text style={styles.labelText}>Reports</Text>
         </View>
         <View style={styles.boxContainer}>
-          <Text style={styles.valueText}>20K</Text>
+          <Text style={styles.valueText}>{guidesData.length}</Text>
           <Text style={styles.labelText}>Guides</Text>
         </View>
         <View style={styles.boxContainer}>
@@ -154,7 +157,11 @@ const Settings: React.FC = ({navigation}) => {
         style={styles.flatList}
         data={tabs[0].isActive ? reportsData : guidesData}
         renderItem={({item}) =>
-          tabs[0].isActive ? <ReportCard data={item} /> : <GuideCard />
+          tabs[0].isActive ? (
+            <ReportCard data={item} />
+          ) : (
+            <GuideCard data={item} />
+          )
         }
       />
     </View>

@@ -23,6 +23,21 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 100,
+    position: 'relative',
+  },
+  imageOverLayContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cameraIcon: {
+    width: 25,
+    height: 25,
+    tintColor: WHITE,
   },
   scrollContainer: {
     width: '100%',

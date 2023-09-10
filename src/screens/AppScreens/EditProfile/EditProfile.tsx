@@ -113,6 +113,12 @@ const EditProfile: React.FC = ({navigation}) => {
             }
             style={styles.profileImage}
           />
+          <View style={styles.imageOverLayContainer}>
+            <Image
+              source={require('../../../assets/icons/camera.png')}
+              style={styles.cameraIcon}
+            />
+          </View>
         </TouchableOpacity>
 
         <InputField
