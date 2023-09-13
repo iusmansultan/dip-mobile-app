@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
     FORGOT_PASSWORD: 'user/forgotpassword',
     UPDATE_PROFILE: 'user/update',
     DELETE_USER: 'user/delete',
+    GET_ALL_USER: 'user/getAllUser',
   },
   GUIDE: {
     CREATE_NEW_GUIDE: 'guide/createGuide',

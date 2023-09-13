@@ -1,10 +1,11 @@
 import {Text, View, Image, ScrollView} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import styles from './Styles';
-import ReportCard from '../../../components/ReportCard/ReportCard';
+import ReportPostCard from '../../../components/ReportPostCard/ReportPostCard';
 import {ReportModal} from '../../../utils/DataModels';
 import {GetAllReports} from '../../../services/ReportService';
 import {useNotification} from '../../../contextApi/ApiContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Home: React.FC = ({}) => {
   const {showLoading, showError} = useNotification();
@@ -13,6 +14,12 @@ const Home: React.FC = ({}) => {
   useEffect(() => {
     fetchReports();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchReports();
+    }, []),
+  );
 
   const fetchReports = async () => {
     showLoading(true);
@@ -36,7 +43,7 @@ const Home: React.FC = ({}) => {
           reportsData.map((item, index) => {
             return (
               <View key={index}>
-                <ReportCard data={item} />
+                <ReportPostCard data={item} />
               </View>
             );
           })}

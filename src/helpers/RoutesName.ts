@@ -16,12 +16,6 @@ export const NOTIFICATION = 'Notification';
 export const SETTINGS = 'Settings';
 export const ADD = 'Add';
 export const EDIT_PROFILE = 'edit_profile';
-
-
-
-export const HOW_TO_PLAY = 'howtoplay';
-export const PLAY = 'play';
-export const ACCOUNT = 'account';
 export const RESET_PASSWORD = 'resetpassword';
 export const ADD_NEW_GUIDE = 'addNewGuide';
 

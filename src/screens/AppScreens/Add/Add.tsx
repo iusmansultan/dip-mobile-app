@@ -148,11 +148,15 @@ const Add: React.FC = ({navigation}) => {
   };
 
   const onCreateReport = async () => {
+    const selectedGuides: string[] = [];
+    guides.map((item: any) =>
+      item.isSelected ? selectedGuides.push(item._id) : '',
+    );
     const body = {
       images,
       title: name,
       description,
-      guides,
+      guides: selectedGuides,
       places: 'no place',
       createdBy: user._id,
       createdAt: new Date(),
@@ -165,11 +169,11 @@ const Add: React.FC = ({navigation}) => {
     console.log(response);
 
     if (response.success) {
-      showSuccess('Report Created Successfully');
       setImages([]);
       setName('');
       setDescription('');
       fetchUserGuides();
+      showSuccess('Report Created Successfully');
       navigation.navigate(HOME);
     } else {
       showError(response.message);
@@ -209,11 +213,13 @@ const Add: React.FC = ({navigation}) => {
         <InputField
           title="Name"
           placeholderText="Name"
+          value={name}
           onChange={text => onChangeName(text)}
         />
         <DescriptionField
           title="Name"
           placeholderText="Describe your report..."
+          value={description}
           onChange={text => onChangeDescription(text)}
         />
 

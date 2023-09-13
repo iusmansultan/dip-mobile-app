@@ -2,9 +2,6 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Splash from '../screens/Splash/Splash';
 import MyTabs from '../screens/AppScreens/Tab/Tab';
-import HowToPlay from '../screens/AppScreens/HowToPlay/HowToPlay';
-import Play from '../screens/AppScreens/Play/Play';
-import Account from '../screens/AppScreens/Account/Account';
 import ResetPassword from '../screens/AppScreens/ResetPassword/ResetPassword';
 import AddNewGuide from '../screens/AppScreens/AddNewGuide/AddNewGuide';
 import EditProfile from '../screens/AppScreens/EditProfile/EditProfile';
@@ -12,9 +9,7 @@ import EditProfile from '../screens/AppScreens/EditProfile/EditProfile';
 import {
   SPLASH,
   MY_TABS,
-  HOW_TO_PLAY,
-  PLAY,
-  ACCOUNT,
+
   RESET_PASSWORD,
   ADD_NEW_GUIDE,
   EDIT_PROFILE,
@@ -31,21 +26,7 @@ const AppStack = () => {
         component={MyTabs}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name={HOW_TO_PLAY}
-        component={HowToPlay}
-        options={{
-          title: 'How to play',
-          headerStyle: {
-            backgroundColor: COLOR_PRIMARY,
-          },
-          headerTitleStyle: {
-            color: WHITE,
-          },
-          headerBackTitleVisible: false,
-          headerTintColor: WHITE,
-        }}
-      />
+  
       <Stack.Screen
         name={ADD_NEW_GUIDE}
         component={AddNewGuide}
@@ -75,16 +56,6 @@ const AppStack = () => {
           headerBackTitleVisible: false,
           headerTintColor: BLACK,
         }}
-      />
-      <Stack.Screen
-        name={PLAY}
-        component={Play}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name={ACCOUNT}
-        component={Account}
-        options={{headerShown: false}}
       />
       <Stack.Screen
         name={RESET_PASSWORD}
