@@ -121,10 +121,32 @@ const UploadUserProfileImage = async (image: any, id: string) => {
   }
 };
 
+
+const GetAllUser = async () => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.USER.GET_ALL_USER;
+    const response = await AxiosCall({url: url, method: 'get', data: ''});
+    console.log(response);
+
+    return {
+      success: true,
+      message: 'SignIn Successfully',
+      data: response.res,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
+
 export {
   CreateUser,
   SignInUser,
   VerifyUser,
   UploadUserProfileImage,
   UpdateUserProfile,
+  GetAllUser,
 };

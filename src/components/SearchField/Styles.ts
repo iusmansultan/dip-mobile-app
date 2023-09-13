@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     marginBottom: 10,
-    marginTop: 10,
   },
   labelText: {
     fontSize: getFontSize(14),
@@ -22,7 +21,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     borderRadius: 8,
-    marginTop: 4,
     paddingHorizontal: 13,
     flexDirection: 'row',
     alignItems: 'center',

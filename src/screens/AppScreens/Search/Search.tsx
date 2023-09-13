@@ -8,7 +8,7 @@ import {
 import React, {useState, useRef, useEffect} from 'react';
 import SearchField from '../../../components/SearchField/SearchField';
 import styles from './Styles';
-import ReportCard from '../../../components/ReportCard/ReportCard';
+import ReportPostCard from '../../../components/ReportPostCard/ReportPostCard';
 import AccountCard from '../../../components/AccountCard/AccountCard';
 import PlacesCard from '../../../components/PlacesCard/PlacesCard';
 import GuideCard from '../../../components/GuideCard/GuideCard';
@@ -19,6 +19,7 @@ import {ReportModal, UserModal} from '../../../utils/DataModels';
 import {useNotification} from '../../../contextApi/ApiContext';
 import {GetAllReports} from '../../../services/ReportService';
 import {GetAllGuides} from '../../../services/GuideService';
+import {GetAllUser} from '../../../services/UserService';
 
 const Search = () => {
   const {showLoading, showError} = useNotification();
@@ -125,24 +126,23 @@ const Search = () => {
     setIndex(pre => pre + 1);
   };
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: (_, gestureState) => {
-        if (gestureState.dx < -50) {
-          // User swiped from right to left
-          // console.log('Swiped from right to left');
-          onTabPress(index + 1);
-        }
-      },
-      onPanResponderEnd: () => {},
-    }),
-  ).current;
-
   useEffect(() => {
     onFetchReports();
     onFetchGuides();
+    onGetAllAccounts();
   }, []);
+
+  const onGetAllAccounts = async () => {
+    showLoading(true);
+    const response = await GetAllUser();
+    console.log(response);
+    showLoading(false);
+    if (response.success) {
+      setAccountsData(response.data);
+    } else {
+      showError(response.message);
+    }
+  };
 
   const onFetchReports = async () => {
     showLoading(true);
@@ -156,8 +156,7 @@ const Search = () => {
   };
 
   const onFetchGuides = async () => {
-    const response = await GetAllReports();
-    console.log(response.data[0]);
+    const response = await GetAllGuides();
     if (response.success) {
       setGuidesData(response.data);
     } else {
@@ -203,7 +202,7 @@ const Search = () => {
         }
         renderItem={({item}) =>
           tabs[0].isActive ? (
-            <ReportCard data={item} />
+            <ReportPostCard data={item} />
           ) : tabs[1].isActive ? (
             <AccountCard data={item} />
           ) : tabs[2].isActive ? (
