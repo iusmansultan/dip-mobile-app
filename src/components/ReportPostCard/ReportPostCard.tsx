@@ -1,17 +1,24 @@
-import {View, Text, Image, FlatList} from 'react-native';
+import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import styles from './Styles';
 import {ReportModal} from '../../utils/DataModels';
+import {REPORTS_DETAILS} from '../../helpers/RoutesName';
+import {useNavigation} from '@react-navigation/native';
 
 const ReportPostCard: React.FC<any> = ({data}) => {
   const flatListRef: any = useRef(null);
+  const navigation = useNavigation();
 
   const RenderItem: React.FC<any> = ({image}) => {
     return <Image source={{uri: image}} style={styles.image} />;
   };
 
+  const onClickHandle = () => {
+    navigation.navigate(REPORTS_DETAILS, {details: data});
+  };
+
   return (
-    <View style={styles.postCard}>
+    <TouchableOpacity onPress={onClickHandle} style={styles.postCard}>
       <View style={styles.userTopContainer}>
         <Image
           source={
@@ -51,7 +58,7 @@ const ReportPostCard: React.FC<any> = ({data}) => {
       <Text style={styles.description} numberOfLines={2}>
         {data.description}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
