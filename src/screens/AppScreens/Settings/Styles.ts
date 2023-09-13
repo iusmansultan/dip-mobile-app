@@ -15,9 +15,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: WHITE,
-    padding: 20,
-    alignItems: 'center',
+    padding: 15,
     // justifyContent: 'center',
+  },
+  contentContainerStyle: {
+    alignItems: 'center',
   },
   profileImageContainer: {
     width: 100,
@@ -76,13 +78,14 @@ const styles = StyleSheet.create({
 
   tabsContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
     width: '100%',
-    height: heightPercentageToDP('5%'),
+    height: 50,
     paddingHorizontal: 10,
     paddingVertical: 10,
     gap: 20,
+    marginTop: 10,
   },
 
   activeTab: {

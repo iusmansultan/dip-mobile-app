@@ -24,6 +24,7 @@ import {EDIT_PROFILE} from '../../../helpers/RoutesName';
 import {GetUserGuides} from '../../../services/GuideService';
 import {GetUserReports} from '../../../services/ReportService';
 import {useNotification} from '../../../contextApi/ApiContext';
+import {ScrollView} from 'react-native-gesture-handler';
 const Settings: React.FC = ({navigation}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: any) => state.user.value.user);
@@ -102,7 +103,10 @@ const Settings: React.FC = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainerStyle}
+      showsVerticalScrollIndicator={false}>
       <View style={styles.profileImageContainer}>
         <Image
           source={
@@ -152,7 +156,7 @@ const Settings: React.FC = ({navigation}) => {
         })}
       </View>
 
-      <FlatList
+      {/* <FlatList
         showsVerticalScrollIndicator={false}
         style={styles.flatList}
         data={tabs[0].isActive ? reportsData : guidesData}
@@ -163,8 +167,20 @@ const Settings: React.FC = ({navigation}) => {
             <GuideCard data={item} />
           )
         }
-      />
-    </View>
+      /> */}
+
+      {tabs[0].isActive
+        ? reportsData.map((item: any, index: number) => {
+            return (
+              <View key={index}>
+                <ReportCard data={item} />
+              </View>
+            );
+          })
+        : guidesData.map((item: any, index: number) => {
+            return <GuideCard key={index} data={item} />;
+          })}
+    </ScrollView>
   );
 };
 
