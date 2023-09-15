@@ -21,4 +21,8 @@ export const API_ENDPOINTS = {
     GET_ALL_REPORT: 'reports/getAllReport',
     GET_USER_REPORT: 'reports/getUserReport/',
   },
+  COMMENTS: {
+    CREATE_NEW_COMMENT: 'comment/create',
+    GET_ALL_COMMENT: 'comment/getAll',
+  },
 };

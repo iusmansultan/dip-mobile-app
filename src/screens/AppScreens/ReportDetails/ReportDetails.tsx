@@ -9,27 +9,99 @@ import {
   SafeAreaView,
   ScrollView,
   TextInput,
+  Keyboard,
 } from 'react-native';
+
 import React, {useState, useEffect} from 'react';
 import styles from './Styles';
 import InputField from '../../../components/InputField/InputField';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {useAppSelector, useAppDispatch} from '../../../redux/Hooks';
 import {useNotification} from '../../../contextApi/ApiContext';
 
+import {CreateComment, GetAllComments} from '../../../services/CommentService';
+
 const ReportDetails: React.FC = ({navigation, route}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: any) => state.user.value.user);
-  const {showLoading, showError} = useNotification();
+  const {showLoading, showError, showSuccess} = useNotification();
   const {details} = route.params;
 
   const [comment, setComment] = useState<string>('');
+  const [comments, setComments] = useState<any[]>([]);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState<boolean>(false);
 
   const RenderItem: React.FC<any> = ({image}) => {
     return <Image source={{uri: image}} style={styles.image} />;
   };
+
+  useEffect(() => {
+    onFetchComments();
+    // Add a listener for keyboard open event
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      keyboardDidShow,
+    );
+
+    // Add a listener for keyboard close event
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      keyboardDidHide,
+    );
+
+    // Clean up the listeners when the component unmounts
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  const keyboardDidShow = () => {
+    // Keyboard is open
+    console.log('Keyboard is open');
+    setIsKeyboardOpen(true);
+  };
+
+  const keyboardDidHide = () => {
+    // Keyboard is closed
+    console.log('Keyboard is closed');
+    setIsKeyboardOpen(false);
+  };
+
+  const onPostCommet = async () => {
+    const body = {
+      comment,
+      reportId: details._id,
+      userId: user._id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    showLoading(true);
+    const {success, message, data} = await CreateComment(body);
+    showLoading(false);
+    if (success) {
+      setComment('');
+      onFetchComments();
+      showSuccess('Commented successfully!');
+    } else {
+      showError(message);
+    }
+  };
+
+  const onFetchComments = async () => {
+    showLoading(true);
+    const {success, message, data} = await GetAllComments(details._id);
+    showLoading(false);
+    if (success) {
+      setComments(data);
+    } else {
+      showError(message);
+    }
+  };
+
   return (
-    <>
+    <View style={styles.mainContainer}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainerStyle}
@@ -74,21 +146,45 @@ const ReportDetails: React.FC = ({navigation, route}) => {
         <Text style={styles.description}>{details.description}</Text>
 
         <View style={styles.divider}></View>
+
+        {comments.map((item: any, index: any) => (
+          <View key={index} style={styles.commentBox}>
+            <Image
+              source={{uri: item.user[0].imageUrl}}
+              style={styles.profilePicture}
+            />
+            <View style={styles.commentTextContainer}>
+              <Text style={styles.commentUserName}>{item.user[0].name}</Text>
+              <View style={styles.commentMessageContainer}>
+                <Text style={styles.commentText}>{item.comment}</Text>
+              </View>
+              <Text style={styles.dateText}>
+                {new Date(item.createdAt).toLocaleDateString()}
+              </Text>
+            </View>
+          </View>
+        ))}
       </ScrollView>
-      <View style={styles.commentContainer}>
+
+      <View
+        style={
+          isKeyboardOpen
+            ? styles.commentContainerWithOpenKeyboard
+            : styles.commentContainer
+        }>
         <TextInput
           style={styles.commentInputContainer}
           onChangeText={text => setComment(text)}
           value={comment}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPostCommet}>
           <Image
             source={require('../../../assets/icons/sendMessageIcon.png')}
             style={styles.sendIcon}
           />
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 };
 

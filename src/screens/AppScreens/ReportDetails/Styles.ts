@@ -15,12 +15,21 @@ import {
 } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     backgroundColor: WHITE,
-    // justifyContent: 'center',
+    height: '100%',
   },
-  contentContainerStyle: {},
+  container: {
+    height: '90%',
+    width: wp('100%'),
+    marginBottom: 10,
+  },
+  contentContainerStyle: {
+    // flexGrow: 1,
+    // alignItems: 'flex-start',
+    // justifyContent: 'flex-start',
+  },
 
   image: {
     width: wp('100%'),
@@ -69,7 +78,7 @@ const styles = StyleSheet.create({
     fontFamily: REGULAR,
   },
   imageContainer: {
-    height: '60%',
+    height: 350,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -94,6 +103,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
   },
+  commentContainerWithOpenKeyboard: {
+    width: wp('100%'),
+    borderTopWidth: 1,
+    borderTopColor: '#dbdbdb',
+    minHeight: hp('10%'),
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    marginBottom: Platform.OS === 'ios' ? 320 : 0,
+  },
   commentInputContainer: {
     width: '85%',
     minHeight: 40,
@@ -108,6 +129,39 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginTop: 10,
+  },
+
+  commentBox: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    margin: 10,
+  },
+  profilePicture: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  commentTextContainer: {
+    marginLeft: 10,
+  },
+  commentUserName: {
+    fontWeight: 'bold',
+  },
+  commentText: {
+    fontSize: getFontSize(15),
+    fontFamily: MEDIUM,
+  },
+  dateText: {
+    fontSize: getFontSize(12),
+    fontFamily: REGULAR,
+    marginTop: 10,
+  },
+  commentMessageContainer: {
+    backgroundColor: '#ebebeb',
+    width: wp('75%'),
+    borderRadius: 10,
+    padding: 10,
+    marginTop: 5,
   },
 });
 
