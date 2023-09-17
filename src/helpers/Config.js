@@ -25,4 +25,7 @@ export const API_ENDPOINTS = {
     CREATE_NEW_COMMENT: 'comment/create',
     GET_ALL_COMMENT: 'comment/getAll',
   },
+  SEARCH: {
+    SEARCH: 'search',
+  },
 };

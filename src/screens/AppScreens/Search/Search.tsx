@@ -20,6 +20,8 @@ import {useNotification} from '../../../contextApi/ApiContext';
 import {GetAllReports} from '../../../services/ReportService';
 import {GetAllGuides} from '../../../services/GuideService';
 import {GetAllUser} from '../../../services/UserService';
+import {API_ENDPOINTS, BASE_URL} from '../../../helpers/Config';
+import AxiosCall from '../../../utils/AxiosCall';
 
 const Search = () => {
   const {showLoading, showError} = useNotification();
@@ -164,11 +166,50 @@ const Search = () => {
     }
   };
 
-  const onFetchAccounts = async () => {};
+  // Define a debounce function
+  function debounce<T extends (...args: any[]) => void>(
+    func: T,
+    delay: number,
+  ): (...args: Parameters<T>) => void {
+    let timer: NodeJS.Timeout;
+    return function (...args: Parameters<T>) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  }
+  const onSearch = async (text: string) => {
+    // Use the debounce function to create a debounced version of onSearch
+    const debouncedOnSearch = debounce(async (searchText: string) => {
+      const activeTabTitles: string[] = tabs
+        .filter((item: any) => item.isActive && item.title)
+        .map((item: any) => item.title);
+
+      const url =
+        BASE_URL +
+        API_ENDPOINTS.SEARCH.SEARCH +
+        `?type=${activeTabTitles[0]}&searchtext=${searchText}`;
+      try {
+        const response = await AxiosCall({url: url, method: 'get', data: ''});
+        console.log(response);
+        if (activeTabTitles[0] === 'Reports') setReportData(response.data);
+        else if (activeTabTitles[0] === 'Accounts')
+          setAccountsData(response.data);
+        else if (activeTabTitles[0] === 'Places') setPlacesData(response.data);
+        else if (activeTabTitles[0] === 'Guides') setGuidesData(response.data);
+        else {
+        }
+      } catch (e: any) {
+        showError(e.error);
+      }
+    }, 300);
+    debouncedOnSearch(text);
+  };
 
   return (
     <View style={styles.container}>
-      <SearchField placeholderText="Search" onChange={() => {}} />
+      <SearchField placeholderText="Search" onChange={text => onSearch(text)} />
 
       <View style={styles.tabsContainer}>
         {tabs.map((item: any, index: number) => {
