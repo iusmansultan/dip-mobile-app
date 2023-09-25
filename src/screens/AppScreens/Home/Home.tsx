@@ -25,7 +25,6 @@ const Home: React.FC = ({}) => {
     showLoading(true);
     const response = await GetAllReports();
     showLoading(false);
-    console.log(response.data);
     if (response.success) {
       setReportData(response.data);
     } else {

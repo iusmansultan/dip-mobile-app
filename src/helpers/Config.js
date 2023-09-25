@@ -28,4 +28,7 @@ export const API_ENDPOINTS = {
   SEARCH: {
     SEARCH: 'search',
   },
+  NOTIFICATIONS: {
+    GET_USER_NOTIFICATIONS: 'notifications/getUserNotifications',
+  },
 };

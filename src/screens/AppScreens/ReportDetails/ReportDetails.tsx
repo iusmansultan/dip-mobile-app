@@ -73,7 +73,8 @@ const ReportDetails: React.FC = ({navigation, route}) => {
     const body = {
       comment,
       reportId: details._id,
-      userId: user._id,
+      userId: details.user[0]._id,
+      commentedBy: user._id,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -150,7 +151,11 @@ const ReportDetails: React.FC = ({navigation, route}) => {
         {comments.map((item: any, index: any) => (
           <View key={index} style={styles.commentBox}>
             <Image
-              source={{uri: item.user[0].imageUrl}}
+              source={
+                item.user[0].imageUrl !== ''
+                  ? {uri: item.user[0].imageUrl}
+                  : require('../../../assets/images/profile-avatar.jpeg')
+              }
               style={styles.profilePicture}
             />
             <View style={styles.commentTextContainer}>

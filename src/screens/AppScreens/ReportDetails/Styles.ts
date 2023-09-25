@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   commentText: {
-    fontSize: getFontSize(15),
-    fontFamily: MEDIUM,
+    fontSize: getFontSize(12),
+    fontFamily: REGULAR,
   },
   dateText: {
     fontSize: getFontSize(12),
