@@ -163,6 +163,36 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 5,
   },
+  dFlexBetween: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+  },
+  icons: {
+    width: 15,
+    height: 15,
+  },
+  iconsActive: {
+    width: 15,
+    height: 15,
+    tintColor: '#3898ff',
+  },
+  text: {
+    fontFamily: REGULAR,
+    fontSize: getFontSize(13),
+    color: BLACK,
+  },
+  textActive: {
+    fontFamily: REGULAR,
+    fontSize: getFontSize(13),
+    color: '#3898ff',
+  },
+  dFlexStart: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
 });
 
 export default styles;

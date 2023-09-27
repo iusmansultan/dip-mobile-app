@@ -116,6 +116,18 @@ const styles = StyleSheet.create({
     height: 25,
     marginRight: 20,
   },
+  logoutButton: {
+    backgroundColor: COLOR_PRIMARY,
+    marginLeft: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 3,
+    borderRadius: 40,
+  },
+  logoutText: {
+    fontSize: getFontSize(14),
+    color: BLACK,
+    fontFamily: MEDIUM,
+  },
 });
 
 export default styles;

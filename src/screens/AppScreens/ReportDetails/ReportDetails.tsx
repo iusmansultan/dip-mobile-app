@@ -12,31 +12,35 @@ import {
   Keyboard,
 } from 'react-native';
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styles from './Styles';
-import InputField from '../../../components/InputField/InputField';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import Share from 'react-native-share';
 import {useAppSelector, useAppDispatch} from '../../../redux/Hooks';
 import {useNotification} from '../../../contextApi/ApiContext';
 
 import {CreateComment, GetAllComments} from '../../../services/CommentService';
+import {LikeReportByUser} from '../../../services/ReportService';
 
 const ReportDetails: React.FC = ({navigation, route}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: any) => state.user.value.user);
   const {showLoading, showError, showSuccess} = useNotification();
   const {details} = route.params;
-
+  const commentInputRef: any = useRef(null);
   const [comment, setComment] = useState<string>('');
   const [comments, setComments] = useState<any[]>([]);
   const [isKeyboardOpen, setIsKeyboardOpen] = useState<boolean>(false);
+
+  const [isLike, setIsLike] = useState<boolean>(false);
 
   const RenderItem: React.FC<any> = ({image}) => {
     return <Image source={{uri: image}} style={styles.image} />;
   };
 
   useEffect(() => {
+    if (details.likes !== undefined) {
+      setIsLike(details.likes.includes(user._id));
+    }
     onFetchComments();
     // Add a listener for keyboard open event
     const keyboardDidShowListener = Keyboard.addListener(
@@ -90,6 +94,25 @@ const ReportDetails: React.FC = ({navigation, route}) => {
     }
   };
 
+  const onHandleLikeClick = async () => {
+    if (isLike) {
+      const body = {
+        likeBy: user._id,
+      };
+      showLoading(true);
+      const {success, message, data} = await LikeReportByUser(
+        body,
+        details._id,
+      );
+      showLoading(false);
+      if (success) {
+        showSuccess('Liked successfully!');
+      } else {
+        showError(message);
+      }
+    }
+  };
+
   const onFetchComments = async () => {
     showLoading(true);
     const {success, message, data} = await GetAllComments(details._id);
@@ -98,6 +121,25 @@ const ReportDetails: React.FC = ({navigation, route}) => {
       setComments(data);
     } else {
       showError(message);
+    }
+  };
+
+  const onHandleCommentClick = () => {
+    commentInputRef.current.focus();
+  };
+
+  const onHandleShare = async () => {
+    try {
+      const options = {
+        title: details.title,
+        message: details.description,
+        url: 'https://www.dip.com',
+        social: Share.Social.EMAIL,
+      };
+
+      await Share.open(options);
+    } catch (error) {
+      console.error('Error sharing:', error);
     }
   };
 
@@ -148,6 +190,36 @@ const ReportDetails: React.FC = ({navigation, route}) => {
 
         <View style={styles.divider}></View>
 
+        <View style={styles.dFlexBetween}>
+          <TouchableOpacity
+            onPress={onHandleLikeClick}
+            style={styles.dFlexStart}>
+            <Image
+              source={require('../../../assets/icons/reportdetails/like.png')}
+              style={isLike ? styles.iconsActive :styles.icons}
+            />
+            <Text style={isLike ? styles.textActive : styles.text}>Like</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={onHandleCommentClick}
+            style={styles.dFlexStart}>
+            <Image
+              source={require('../../../assets/icons/reportdetails/comment.png')}
+              style={styles.icons}
+            />
+            <Text style={styles.text}>Comment</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onHandleShare} style={styles.dFlexStart}>
+            <Image
+              source={require('../../../assets/icons/reportdetails/share.png')}
+              style={styles.icons}
+            />
+            <Text style={styles.text}>Share</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.divider}></View>
+
         {comments.map((item: any, index: any) => (
           <View key={index} style={styles.commentBox}>
             <Image
@@ -178,6 +250,7 @@ const ReportDetails: React.FC = ({navigation, route}) => {
             : styles.commentContainer
         }>
         <TextInput
+          ref={commentInputRef}
           style={styles.commentInputContainer}
           onChangeText={text => setComment(text)}
           value={comment}

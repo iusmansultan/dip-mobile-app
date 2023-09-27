@@ -4,10 +4,18 @@ import styles from './Styles';
 import {ReportModal} from '../../utils/DataModels';
 import {REPORTS_DETAILS} from '../../helpers/RoutesName';
 import {useNavigation} from '@react-navigation/native';
+import {useAppSelector, useAppDispatch} from '../../redux/Hooks';
+import {FollowAndFollowing} from '../../services/UserService';
+import {useNotification} from '../../contextApi/ApiContext';
+import {saveUser} from '../../redux/User/UserSlice';
 
 const ReportPostCard: React.FC<any> = ({data}) => {
+  const dispatch = useAppDispatch();
   const flatListRef: any = useRef(null);
   const navigation = useNavigation();
+  const user = useAppSelector((state: any) => state.user.value.user);
+  let result = user.following.includes(data.user[0]._id);
+  const {showSuccess} = useNotification();
 
   const RenderItem: React.FC<any> = ({image}) => {
     return <Image source={{uri: image}} style={styles.image} />;
@@ -15,6 +23,29 @@ const ReportPostCard: React.FC<any> = ({data}) => {
 
   const onClickHandle = () => {
     navigation.navigate(REPORTS_DETAILS, {details: data});
+  };
+
+  const onFollowPress = async (event: any) => {
+    const body = {
+      followingId: data.user[0]._id,
+    };
+    const response = await FollowAndFollowing(body, user._id);
+    console.log(response);
+    if (response.success) {
+      showSuccess('Followed successfully');
+      let userFollowing = [...user.follower, data.user[0]._id];
+
+      dispatch(
+        saveUser({
+          isLoggedIn: true,
+          user: {
+            ...user,
+            following: userFollowing,
+          },
+        }),
+      );
+    }
+    event.stopPropagation();
   };
 
   return (
@@ -38,6 +69,11 @@ const ReportPostCard: React.FC<any> = ({data}) => {
             })}
           </Text>
         </View>
+        {!result && (
+          <TouchableOpacity onPress={onFollowPress} style={styles.followButton}>
+            <Text style={styles.followText}>Follow</Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       <View style={styles.imageContainer}>

@@ -48,6 +48,13 @@ const Notification: React.FC = () => {
     );
   };
 
+  if (notifications.length == 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.noNotificationText}>No notifications founds</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <FlatList

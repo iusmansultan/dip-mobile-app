@@ -78,6 +78,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'hidden',
   },
+  followButton: {
+    marginLeft: 15,
+    backgroundColor: '#D9D9D9',
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 10,
+    marginTop: -10,
+  },
+  followText: {
+    fontFamily: REGULAR,
+    fontSize: getFontSize(14),
+    color: BLACK,
+  },
 });
 
 export default styles;

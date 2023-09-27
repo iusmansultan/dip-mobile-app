@@ -1,4 +1,4 @@
-import {Text, View, Image, ScrollView} from 'react-native';
+import {Text, View, Image, ScrollView, RefreshControl} from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
 import styles from './Styles';
 import ReportPostCard from '../../../components/ReportPostCard/ReportPostCard';
@@ -37,7 +37,10 @@ const Home: React.FC = ({}) => {
       <HeaderContainer />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.containerList}>
+        contentContainerStyle={styles.containerList}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={fetchReports} />
+        }>
         {reportsData &&
           reportsData.map((item, index) => {
             return (

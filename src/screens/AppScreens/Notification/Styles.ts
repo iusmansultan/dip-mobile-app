@@ -3,6 +3,8 @@ import {
   BLACK,
   COLOR_PRIMARY,
   COLOR_SECANDRY,
+  MEDIUM,
+  REGULAR,
   WHITE,
 } from '../../../helpers/Colors';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -12,9 +14,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    // padding: 10,
     alignItems: 'center',
-    // justifyContent: 'center',
+  },
+  emptyContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   notificationTile: {
     // height: 50,
@@ -36,14 +42,19 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR_PRIMARY,
   },
   nameTextStyle: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: MEDIUM,
     color: BLACK,
     fontSize: getFontSize(14),
   },
   messageStyle: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: REGULAR,
     color: BLACK,
     fontSize: getFontSize(12),
+  },
+  noNotificationText: {
+    fontFamily: REGULAR,
+    color: BLACK,
+    fontSize: getFontSize(15),
   },
 });
 

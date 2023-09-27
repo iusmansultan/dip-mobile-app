@@ -46,6 +46,32 @@ const CreateReport = async (data: any) => {
     };
   }
 };
+const LikeReportByUser = async (data: any, id: string) => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.REPORTS.LIKE_REPORT_BY_USER + id;
+    const response = await AxiosCall({url: url, method: 'post', data: data});
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'Report liked successfully!',
+        data: response,
+      };
+    }
+
+    return {
+      success: false,
+      message: response.message,
+      data: response,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
 const GetAllReports = async () => {
   try {
     const url = BASE_URL + API_ENDPOINTS.REPORTS.GET_ALL_REPORT;
@@ -105,4 +131,10 @@ function generateRandomImageName() {
   return `${timestamp}-${random}.jpg`;
 }
 
-export {UploadImage, CreateReport, GetAllReports, GetUserReports};
+export {
+  UploadImage,
+  CreateReport,
+  GetAllReports,
+  GetUserReports,
+  LikeReportByUser,
+};

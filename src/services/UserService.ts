@@ -142,6 +142,36 @@ const GetAllUser = async () => {
   }
 };
 
+
+const FollowAndFollowing = async (data: any, id: string) => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.USER.FOLLOW_FOLLOWING + id;
+
+    const response = await AxiosCall({url: url, method: 'post', data: data});
+    console.log(response);
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'Followed!',
+        data: response,
+      };
+    }
+
+    return {
+      success: false,
+      message: response.message,
+      data: response,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
+
 export {
   CreateUser,
   SignInUser,
@@ -149,4 +179,5 @@ export {
   UploadUserProfileImage,
   UpdateUserProfile,
   GetAllUser,
+  FollowAndFollowing,
 };

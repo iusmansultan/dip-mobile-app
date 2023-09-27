@@ -58,6 +58,11 @@ const Settings: React.FC = ({navigation}) => {
           />
         </TouchableOpacity>
       ),
+      headerLeft: () => (
+        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+         <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      ),
     });
   }, []);
 
@@ -119,7 +124,9 @@ const Settings: React.FC = ({navigation}) => {
       </View>
 
       <Text style={styles.profileName}>{user.name}</Text>
-      <Text style={styles.userNameText}>@{user.userName}</Text>
+      {user.userName !== '' && (
+        <Text style={styles.userNameText}>@{user.userName}</Text>
+      )}
 
       <View style={styles.statsContainer}>
         <View style={styles.boxContainer}>
@@ -131,7 +138,7 @@ const Settings: React.FC = ({navigation}) => {
           <Text style={styles.labelText}>Guides</Text>
         </View>
         <View style={styles.boxContainer}>
-          <Text style={styles.valueText}>{user.follower}</Text>
+          <Text style={styles.valueText}>{user.follower.length}</Text>
           <Text style={styles.labelText}>Followers</Text>
         </View>
       </View>

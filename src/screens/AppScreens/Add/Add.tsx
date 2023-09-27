@@ -158,6 +158,7 @@ const Add: React.FC = ({navigation}) => {
       description,
       guides: selectedGuides,
       places: 'no place',
+      likes: [],
       createdBy: user._id,
       createdAt: new Date(),
     };

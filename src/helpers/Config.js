@@ -10,6 +10,7 @@ export const API_ENDPOINTS = {
     UPDATE_PROFILE: 'user/update',
     DELETE_USER: 'user/delete',
     GET_ALL_USER: 'user/getAllUser',
+    FOLLOW_FOLLOWING: 'user/follow-following/',
   },
   GUIDE: {
     CREATE_NEW_GUIDE: 'guide/createGuide',
@@ -20,6 +21,7 @@ export const API_ENDPOINTS = {
     CREATE_NEW_REPORT: 'reports/createReport',
     GET_ALL_REPORT: 'reports/getAllReport',
     GET_USER_REPORT: 'reports/getUserReport/',
+    LIKE_REPORT_BY_USER: 'reports/like/',
   },
   COMMENTS: {
     CREATE_NEW_COMMENT: 'comment/create',
