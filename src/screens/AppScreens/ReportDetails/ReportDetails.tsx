@@ -95,9 +95,12 @@ const ReportDetails: React.FC = ({navigation, route}) => {
   };
 
   const onHandleLikeClick = async () => {
-    if (isLike) {
+    if (!isLike) {
       const body = {
         likeBy: user._id,
+        userId: details.user[0]._id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
       showLoading(true);
       const {success, message, data} = await LikeReportByUser(
@@ -107,6 +110,7 @@ const ReportDetails: React.FC = ({navigation, route}) => {
       showLoading(false);
       if (success) {
         showSuccess('Liked successfully!');
+        setIsLike(true);
       } else {
         showError(message);
       }
