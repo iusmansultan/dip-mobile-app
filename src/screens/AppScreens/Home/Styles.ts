@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    height: Platform.OS === 'ios' ? hp('10%') : hp('7%'),
+    height: Platform.OS === 'ios' ? hp('12%') : hp('7%'),
     width: '100%',
     alignItems: 'flex-end',
     justifyContent: 'space-between',

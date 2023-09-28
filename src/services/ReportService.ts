@@ -98,6 +98,37 @@ const GetAllReports = async () => {
     };
   }
 };
+
+const GetFollowingReports = async (ids: string[]) => {
+  try {
+    const url = BASE_URL + API_ENDPOINTS.REPORTS.GET_FOLLOWING_REPORT;
+    const response = await AxiosCall({
+      url: url,
+      method: 'post',
+      data: {ids: ids},
+    });
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'All Reports',
+        data: response.data,
+      };
+    }
+
+    return {
+      success: false,
+      message: response.message,
+      data: response,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
 const GetUserReports = async (id: string) => {
   try {
     const url = BASE_URL + API_ENDPOINTS.REPORTS.GET_USER_REPORT + id;
@@ -137,4 +168,5 @@ export {
   GetAllReports,
   GetUserReports,
   LikeReportByUser,
+  GetFollowingReports,
 };

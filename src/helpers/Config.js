@@ -20,6 +20,7 @@ export const API_ENDPOINTS = {
   REPORTS: {
     CREATE_NEW_REPORT: 'reports/createReport',
     GET_ALL_REPORT: 'reports/getAllReport',
+    GET_FOLLOWING_REPORT: 'reports/getFollowingReports',
     GET_USER_REPORT: 'reports/getUserReport/',
     LIKE_REPORT_BY_USER: 'reports/like/',
   },
