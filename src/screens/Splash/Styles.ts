@@ -15,17 +15,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: 'white',
-    padding: wp('2%'),
+    padding: wp('4%'),
   },
   logoStyle: {
     width: wp('90%'),
-    height: hp('20%'),
+    height: hp('23%'),
     resizeMode: 'contain',
     marginTop: hp('5%'),
   },
   labelText: {
     color: BLACK,
-    fontSize: getFontSize(40),
+    fontSize: getFontSize(30),
     fontFamily: REGULAR,
   },
   bottomTextContainer: {

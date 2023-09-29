@@ -1,12 +1,11 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Splash from '../screens/Splash/Splash';
 import MyTabs from '../screens/AppScreens/Tab/Tab';
 import ResetPassword from '../screens/AppScreens/ResetPassword/ResetPassword';
 import AddNewGuide from '../screens/AppScreens/AddNewGuide/AddNewGuide';
 import EditProfile from '../screens/AppScreens/EditProfile/EditProfile';
 import ReportDetails from '../screens/AppScreens/ReportDetails/ReportDetails';
-
+import Splash from '../screens/AppScreens/Splash/Splash';
 import {
   SPLASH,
   MY_TABS,
@@ -14,6 +13,7 @@ import {
   ADD_NEW_GUIDE,
   EDIT_PROFILE,
   REPORTS_DETAILS,
+  APP_SPLASH,
 } from '../helpers/RoutesName';
 import {BLACK, COLOR_PRIMARY, WHITE} from '../helpers/Colors';
 
@@ -21,7 +21,12 @@ const Stack = createStackNavigator();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator initialRouteName={MY_TABS}>
+    <Stack.Navigator initialRouteName={APP_SPLASH}>
+      <Stack.Screen
+        name={APP_SPLASH}
+        component={Splash}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name={MY_TABS}
         component={MyTabs}

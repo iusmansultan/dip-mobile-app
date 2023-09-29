@@ -19,6 +19,7 @@ export const EDIT_PROFILE = 'edit_profile';
 export const RESET_PASSWORD = 'resetpassword';
 export const ADD_NEW_GUIDE = 'addNewGuide';
 export const REPORTS_DETAILS = 'reportsDetail';
+export const APP_SPLASH = 'app_splash';
 
 
 

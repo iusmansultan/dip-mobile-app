@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
     DELETE_USER: 'user/delete',
     GET_ALL_USER: 'user/getAllUser',
     FOLLOW_FOLLOWING: 'user/follow-following/',
+    GET_CURRENT_USER: 'user/getCurrentUser/',
   },
   GUIDE: {
     CREATE_NEW_GUIDE: 'guide/createGuide',

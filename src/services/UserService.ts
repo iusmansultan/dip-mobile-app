@@ -1,6 +1,8 @@
 import AxiosCall from '../utils/AxiosCall';
 import {BASE_URL, API_ENDPOINTS} from '../helpers/Config';
 import storage from '@react-native-firebase/storage';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreateUser = async (data: any) => {
   try {
@@ -90,10 +92,40 @@ const SignInUser = async (data: any) => {
     const response = await AxiosCall({url: url, method: 'post', data: data});
     console.log(response);
 
+    if (response.success) await AsyncStorage.setItem('token', response.token);
+
     return {
       success: true,
       message: 'SignIn Successfully',
       data: response.res,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+      data: [],
+    };
+  }
+};
+
+const GetCurrentUser = async () => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const url = BASE_URL + API_ENDPOINTS.USER.GET_CURRENT_USER;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.get(url, config);
+    if (response.data.success)
+      await AsyncStorage.setItem('token', response.data.token);
+
+    return {
+      success: true,
+      message: 'Current User',
+      data: response.data,
     };
   } catch (error: any) {
     return {
@@ -121,7 +153,6 @@ const UploadUserProfileImage = async (image: any, id: string) => {
   }
 };
 
-
 const GetAllUser = async () => {
   try {
     const url = BASE_URL + API_ENDPOINTS.USER.GET_ALL_USER;
@@ -141,7 +172,6 @@ const GetAllUser = async () => {
     };
   }
 };
-
 
 const FollowAndFollowing = async (data: any, id: string) => {
   try {
@@ -180,4 +210,5 @@ export {
   UpdateUserProfile,
   GetAllUser,
   FollowAndFollowing,
+  GetCurrentUser,
 };
