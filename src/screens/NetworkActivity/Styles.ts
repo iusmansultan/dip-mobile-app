@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   descriptionText: {
     marginRight: 30,
     marginLeft: 30,
-    color: DESCRIPTION_TEXT,
+    color: WHITE,
     fontFamily: 'Poppins-Medium',
     marginTop: 15,
     marginBottom: 20,

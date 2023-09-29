@@ -7,6 +7,8 @@ import {
   SafeAreaView,
   ScrollView,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import styles from './Styles';
@@ -52,7 +54,7 @@ const Login: React.FC<MyComponentProps> = ({navigation}) => {
         saveUser({
           isLoggedIn: true,
           user: {
-            ...response.data
+            ...response.data,
           },
         }),
       );
@@ -71,77 +73,83 @@ const Login: React.FC<MyComponentProps> = ({navigation}) => {
     }
   };
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.contentContainerStyle}
-      style={styles.scrollView}>
-      <View style={styles.container}>
-        <Image
-          source={require('./../../../assets/images/logo.png')}
-          style={styles.logo}
-        />
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainerStyle}
+        style={styles.scrollView}>
+        <View style={styles.container}>
+          <Image
+            source={require('./../../../assets/images/logo.png')}
+            style={styles.logo}
+          />
 
-        <>
-          <View style={styles.socialButton}>
-            <Image
-              source={require('../../../assets/icons/googleIcon.png')}
-              style={styles.icon}
-            />
-            <Text style={styles.socialText}>Log in with Google</Text>
-          </View>
-          <View style={styles.socialButtonApple}>
-            <Image
-              source={require('../../../assets/icons/appleIcon.png')}
-              style={styles.iconApple}
-            />
-            <Text style={styles.socialTextApple}>Log in with Apple</Text>
-          </View>
-        </>
+          <>
+            <View style={styles.socialButton}>
+              <Image
+                source={require('../../../assets/icons/googleIcon.png')}
+                style={styles.icon}
+              />
+              <Text style={styles.socialText}>Log in with Google</Text>
+            </View>
+            <View style={styles.socialButtonApple}>
+              <Image
+                source={require('../../../assets/icons/appleIcon.png')}
+                style={styles.iconApple}
+              />
+              <Text style={styles.socialTextApple}>Log in with Apple</Text>
+            </View>
+          </>
 
-        <View style={styles.dividerContainer}>
-          <View style={styles.divider}></View>
-          <Text style={styles.orText}>or</Text>
-          <View style={styles.divider}></View>
+          <View style={styles.dividerContainer}>
+            <View style={styles.divider}></View>
+            <Text style={styles.orText}>or</Text>
+            <View style={styles.divider}></View>
+          </View>
+
+          <>
+            <InputField
+              title="Email address"
+              placeholderText="example@example.com"
+              onChange={text => setEmail(text)}
+              isSecureText={false}
+            />
+            <InputField
+              title="Password"
+              placeholderText="*********"
+              onChange={text => setPassword(text)}
+              isSecureText={true}
+            />
+
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(FORGOT_PASSWORD);
+              }}
+              style={styles.forgotPasswordContianer}>
+              <Text style={styles.forgotPasswordText}>
+                Forgot your Password?
+              </Text>
+            </TouchableOpacity>
+            <PrimaryButton
+              isDisbaled={false}
+              title="Login"
+              onPress={handleSignIn}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(SIGNUP);
+              }}
+              style={styles.signUpTextContianer}>
+              <Text style={styles.forgotPasswordText}>
+                Don't have a account? Sign Up
+              </Text>
+            </TouchableOpacity>
+          </>
         </View>
-
-        <>
-          <InputField
-            title="Email address"
-            placeholderText="example@example.com"
-            onChange={text => setEmail(text)}
-            isSecureText={false}
-          />
-          <InputField
-            title="Password"
-            placeholderText="*********"
-            onChange={text => setPassword(text)}
-            isSecureText={true}
-          />
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(FORGOT_PASSWORD);
-            }}
-            style={styles.forgotPasswordContianer}>
-            <Text style={styles.forgotPasswordText}>Forgot your Password?</Text>
-          </TouchableOpacity>
-          <PrimaryButton
-            isDisbaled={false}
-            title="Login"
-            onPress={handleSignIn}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(SIGNUP);
-            }}
-            style={styles.signUpTextContianer}>
-            <Text style={styles.forgotPasswordText}>
-              Don't have a account? Sign Up
-            </Text>
-          </TouchableOpacity>
-        </>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

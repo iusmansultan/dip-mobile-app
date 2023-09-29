@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Animated, Image} from 'react-native';
 import {useNotification} from '../../contextApi/ApiContext';
 import {getFontSize} from '../../utils/GetFontSize';
-import {MEDIUM} from '../../helpers/Colors';
+import {MEDIUM, WHITE} from '../../helpers/Colors';
 
 const Toaster = () => {
   const {success, error, toaster} = useNotification();
@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
     fontFamily: MEDIUM,
   },
   errorMessageText: {
-    color: '#5c1800',
+    color: WHITE,
     fontSize: getFontSize(15),
     fontFamily: MEDIUM,
   },
   errorIcon: {
     width: 25,
     height: 25,
-    tintColor: '#5c1800',
+    tintColor: WHITE,
   },
   icon: {
     width: 25,

@@ -24,7 +24,7 @@ import {
 } from 'react-native-confirmation-code-field';
 
 const OTP = ({route, navigation}) => {
-  const {showLoading} = useNotification();
+  const {showLoading, showError, showSuccess} = useNotification();
   const {email} = route.params;
 
   const [otp, setOtp] = useState('');
@@ -46,20 +46,10 @@ const OTP = ({route, navigation}) => {
     console.log(response);
     showLoading(false);
     if (response.success) {
-      Alert.alert('Succcesss');
+      showSuccess('Account created successfully!');
       navigation.replace(LOGIN);
     } else {
-      Alert.alert(
-        'Error',
-        response.message,
-        [
-          {
-            text: 'OK',
-            onPress: () => console.log('OK Pressed'),
-          },
-        ],
-        {cancelable: false},
-      );
+      showError('Invalid OTP or expired');
     }
   };
 
