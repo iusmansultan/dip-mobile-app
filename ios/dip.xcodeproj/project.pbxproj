@@ -592,6 +592,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = dip/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = dip;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -620,6 +621,7 @@
 				DEVELOPMENT_TEAM = F3FN6QCBYQ;
 				INFOPLIST_FILE = dip/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = dip;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
