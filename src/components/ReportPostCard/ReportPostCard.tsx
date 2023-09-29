@@ -69,7 +69,7 @@ const ReportPostCard: React.FC<any> = ({data}) => {
             })}
           </Text>
         </View>
-        {!result && (
+        {!result && data.user[0]._id !== user._id && (
           <TouchableOpacity onPress={onFollowPress} style={styles.followButton}>
             <Text style={styles.followText}>Follow</Text>
           </TouchableOpacity>
